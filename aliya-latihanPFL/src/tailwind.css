@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* ===== FONT FACE - Poppins dari file lokal ===== */
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@theme {
+  /* ===== FONTS ===== */
+  --font-poppins: "Poppins", sans-serif;
+  --font-barlow: "Barlow", sans-serif;
+
+  /* ===== COLORS - Palet dari PDF ===== */
+
+  /* Utama - warna primer sekarang Pink (Bubble Gum) */
+  --color-hijau: #e879a0;        /* Pink utama - pengganti hijau */
+  --color-pink: #f29cc3;         /* Bubble Gum - aksen */
+  --color-ungu: #d1caea;         /* Autumn Lavender */
+  --color-peach: #ffc0c0;        /* Peony Bundle */
+  --color-biru-muda: #80b0e8;    /* Airplane View */
+  --color-limeade: #d6d35f;      /* Limeade */
+  --color-tomato: #c45f3f;       /* Tomato Jam */
+  --color-sun: #f4d242;          /* Pure Sun */
+  --color-monet: #898e46;        /* Monet Ponds */
+
+  /* UI Colors */
+  --color-latar: #fff5f8;        /* Background sedikit pink */
+  --color-teks: #374151;
+  --color-teks-samping: #6b7280;
+  --color-garis: #f0e0e8;
+  --color-merah: #ef4444;
+  --color-biru: #3b82f6;
+  --color-kuning: #f59e0b;
+}
+
+body {
+  @apply font-barlow;
+}
