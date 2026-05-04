@@ -119,7 +119,8 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-hijau hover:opacity-90 text-white font-semibold py-2 px-4 rounded-xl transition duration-300 font-barlow disabled:opacity-60"
+          className="w-full font-semibold py-2 px-4 rounded-xl transition duration-300 font-barlow disabled:opacity-60"
+          style={{ backgroundColor: "#f29cc3", color: "#6b3a52" }}
         >
           Masuk Sekarang 🚀
         </button>

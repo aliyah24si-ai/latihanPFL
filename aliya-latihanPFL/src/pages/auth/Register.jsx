@@ -86,7 +86,8 @@ export default function Register() {
 
         <button
           type="submit"
-          className="w-full bg-hijau hover:opacity-90 text-white font-semibold py-2 px-4 rounded-xl transition duration-300 font-barlow"
+          className="w-full font-semibold py-2 px-4 rounded-xl transition duration-300 font-barlow"
+          style={{ backgroundColor: "#d1caea", color: "#4a3a6b" }}
         >
           Daftar Sekarang 🎉
         </button>

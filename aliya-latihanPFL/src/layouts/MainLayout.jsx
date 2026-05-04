@@ -7,14 +7,14 @@ export default function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="flex min-h-screen bg-latar">
-      {/* Sidebar */}
+    <div className="flex h-screen overflow-hidden bg-latar">
+      {/* Sidebar - fixed, ga ikut scroll */}
       <Sidebar isOpen={sidebarOpen} />
 
-      {/* Konten utama */}
-      <div className="flex flex-col flex-1">
+      {/* Konten utama - yang scroll cuma ini */}
+      <div className="flex flex-col flex-1 overflow-hidden">
         <Header onToggle={() => setSidebarOpen(!sidebarOpen)} />
-        <div className="p-4">
+        <div className="flex-1 overflow-y-auto p-4">
           <Outlet />
         </div>
       </div>

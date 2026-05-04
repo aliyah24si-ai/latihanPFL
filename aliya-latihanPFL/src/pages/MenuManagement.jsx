@@ -56,7 +56,8 @@ export default function MenuManagement() {
       <PageHeader title="Menu Management" breadcrumb={["Menu"]}>
         <button
           onClick={() => { setShowForm(true); setEditId(null); setForm({ nama: "", kategori: "Paket Nasi", harga: "", deskripsi: "" }); }}
-          className="bg-hijau text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:opacity-90"
+          className="px-4 py-2 rounded-xl flex items-center gap-2 font-semibold text-sm"
+          style={{ backgroundColor: "#d6d35f", color: "#3a3a00" }}
         >
           <FaPlus /> Tambah Menu
         </button>
@@ -91,7 +92,9 @@ export default function MenuManagement() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
                 <textarea name="deskripsi" value={form.deskripsi} onChange={handleChange} rows={3} placeholder="Deskripsi menu..." className="w-full border border-gray-200 rounded-lg px-4 py-2 outline-none focus:border-hijau resize-none" />
               </div>
-              <button type="submit" className="w-full bg-hijau text-white py-2 rounded-lg font-semibold hover:opacity-90">
+              <button type="submit"
+                className="w-full py-2 rounded-xl font-semibold text-sm"
+                style={{ backgroundColor: "#d6d35f", color: "#3a3a00" }}>
                 {editId ? "Update Menu ✨" : "Simpan Menu 🍱"}
               </button>
             </form>

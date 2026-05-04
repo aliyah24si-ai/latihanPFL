@@ -40,7 +40,8 @@ export default function Orders() {
       <PageHeader title="Orders" breadcrumb={["Orders"]}>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-hijau text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:opacity-90"
+          className="px-4 py-2 rounded-xl flex items-center gap-2 font-semibold text-sm"
+          style={{ backgroundColor: "#ffc0c0", color: "#7a2a2a" }}
         >
           <FaPlus /> Add Orders
         </button>
@@ -107,7 +108,8 @@ export default function Orders() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-hijau text-white py-2 rounded-lg font-semibold hover:opacity-90 mt-2"
+                className="w-full py-2 rounded-xl font-semibold mt-2 text-sm"
+                style={{ backgroundColor: "#ffc0c0", color: "#7a2a2a" }}
               >
                 Simpan Order 🍱
               </button>

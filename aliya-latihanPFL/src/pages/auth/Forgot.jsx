@@ -28,7 +28,8 @@ export default function Forgot() {
 
         <button
           type="submit"
-          className="w-full bg-hijau hover:opacity-90 text-white font-semibold py-2 px-4 rounded-xl transition duration-300 font-barlow"
+          className="w-full font-semibold py-2 px-4 rounded-xl transition duration-300 font-barlow"
+          style={{ backgroundColor: "#80b0e8", color: "#1a3a5c" }}
         >
           Kirim Link Reset 📧
         </button>

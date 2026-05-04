@@ -6,15 +6,13 @@ export default function Header({ onToggle }) {
     <div className="flex justify-between items-center px-6 py-4 bg-white shadow-sm">
       {/* Kiri: tombol toggle + search */}
       <div className="flex items-center gap-4">
-        {/* Tombol toggle sidebar */}
         <button
           onClick={onToggle}
-          className="p-2 rounded-xl bg-ungu text-gray-600 hover:bg-ungu/70 transition"
+          className="p-2 rounded-xl bg-limeade/30 text-monet hover:bg-limeade/50 transition"
         >
           <FaBars className="text-lg" />
         </button>
 
-        {/* Search */}
         <div className="relative">
           <input
             type="text"
@@ -27,23 +25,27 @@ export default function Header({ onToggle }) {
 
       {/* Kanan: icon + profil */}
       <div className="flex items-center gap-3">
+        {/* Notif - Airplane View */}
         <div className="relative p-2 bg-biru-muda/20 rounded-xl text-biru-muda cursor-pointer">
           <FaBell />
           <span className="absolute -top-1 -right-1 bg-biru-muda text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
             5
           </span>
         </div>
+        {/* Settings - Tomato Jam */}
         <div className="p-2 bg-peach/40 rounded-xl text-tomato cursor-pointer">
           <SlSettings />
         </div>
+        {/* Profile */}
         <div className="flex items-center gap-3 border-l pl-4 border-gray-200">
           <div className="text-right hidden sm:block">
             <p className="text-sm font-semibold text-gray-700">Admin Yummy</p>
             <p className="text-xs text-gray-400">Catering Manager</p>
           </div>
           <img
-            src="https://avatar.iran.liara.run/public/28"
-            className="w-9 h-9 rounded-full"
+            src="/foto-admin.jpg"
+            onError={(e) => { e.target.src = "https://avatar.iran.liara.run/public/28" }}
+            className="w-9 h-9 rounded-full object-cover"
             alt="avatar"
           />
         </div>

@@ -17,7 +17,8 @@ export default function ErrorPage({ code, description, image }) {
       <p className="text-gray-400 mb-8 max-w-sm">{description}</p>
       <button
         onClick={() => navigate("/")}
-        className="bg-hijau text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition"
+        className="px-6 py-3 rounded-2xl font-semibold transition"
+        style={{ backgroundColor: "#d1caea", color: "#4a3a6b" }}
       >
         🏠 Balik ke Dashboard
       </button>

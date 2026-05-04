@@ -20,7 +20,8 @@ export default function NotFound() {
       </p>
       <button
         onClick={() => navigate("/")}
-        className="bg-hijau text-white px-8 py-3 rounded-xl font-semibold hover:opacity-90 transition text-lg"
+        className="px-8 py-3 rounded-2xl font-semibold transition text-lg"
+        style={{ backgroundColor: "#f29cc3", color: "#6b3a52" }}
       >
         🏠 Balik ke Dashboard
       </button>

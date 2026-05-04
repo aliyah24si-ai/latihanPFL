@@ -4,7 +4,6 @@ import Loading from "./components/Loading";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
-// Lazy imports - semua pages kecuali Loading
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Orders = React.lazy(() => import("./pages/Orders"));
 const Customers = React.lazy(() => import("./pages/Customers"));
@@ -20,7 +19,6 @@ export default function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        {/* Main Layout - semua halaman dashboard */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/orders" element={<Orders />} />
@@ -58,7 +56,6 @@ export default function App() {
           />
         </Route>
 
-        {/* Auth Layout - halaman login, register, forgot */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

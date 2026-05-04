@@ -33,10 +33,11 @@
 
   /* ===== COLORS - Palet dari PDF ===== */
 
-  /* Utama - warna primer sekarang Pink (Bubble Gum) */
-  --color-hijau: #e879a0;        /* Pink utama - pengganti hijau */
-  --color-pink: #f29cc3;         /* Bubble Gum - aksen */
+  /* Utama - PALET ASLI dari PDF */
+  --color-hijau: #008471;        /* Tropical Rain */
+  --color-pink: #f29cc3;         /* Bubble Gum */
   --color-ungu: #d1caea;         /* Autumn Lavender */
+  --color-ungu-solid: #9b8bb4;   /* Autumn Lavender lebih gelap untuk teks */
   --color-peach: #ffc0c0;        /* Peony Bundle */
   --color-biru-muda: #80b0e8;    /* Airplane View */
   --color-limeade: #d6d35f;      /* Limeade */
@@ -44,11 +45,11 @@
   --color-sun: #f4d242;          /* Pure Sun */
   --color-monet: #898e46;        /* Monet Ponds */
 
-  /* UI Colors */
-  --color-latar: #fff5f8;        /* Background sedikit pink */
-  --color-teks: #374151;
+  /* UI */
+  --color-latar: #f5f0ff;
+  --color-teks: #2d2d2d;
   --color-teks-samping: #6b7280;
-  --color-garis: #f0e0e8;
+  --color-garis: #e5e7eb;
   --color-merah: #ef4444;
   --color-biru: #3b82f6;
   --color-kuning: #f59e0b;

@@ -41,7 +41,8 @@ export default function Customers() {
       <PageHeader title="Customers" breadcrumb={["Customers"]}>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-hijau text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:opacity-90"
+          className="px-4 py-2 rounded-xl flex items-center gap-2 font-semibold text-sm"
+          style={{ backgroundColor: "#d1caea", color: "#4a3a6b" }}
         >
           <FaPlus /> Add Customer
         </button>
@@ -108,7 +109,8 @@ export default function Customers() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-hijau text-white py-2 rounded-lg font-semibold hover:opacity-90 mt-2"
+                className="w-full py-2 rounded-xl font-semibold mt-2 text-sm"
+                style={{ backgroundColor: "#d1caea", color: "#4a3a6b" }}
               >
                 Simpan Customer 🎉
               </button>
