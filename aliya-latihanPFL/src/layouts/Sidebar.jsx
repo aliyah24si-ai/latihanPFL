@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import {
   FaHome, FaShoppingCart, FaUsers, FaUtensils, FaPlus,
-  FaExclamationTriangle, FaLock, FaBan,
+  FaExclamationTriangle, FaLock, FaBan, FaChartBar, FaGift,
 } from "react-icons/fa";
 
 const menuClass = ({ isActive }) =>
@@ -52,6 +52,16 @@ export default function Sidebar({ isOpen }) {
         <li>
           <NavLink to="/menu" className={menuClass}>
             <FaUtensils className="text-base shrink-0" /> Menu
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/reports" className={menuClass}>
+            <FaChartBar className="text-base shrink-0" /> Reports
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/promotions" className={menuClass}>
+            <FaGift className="text-base shrink-0" /> Promotions
           </NavLink>
         </li>
 

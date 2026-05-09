@@ -8,6 +8,8 @@ const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Orders = React.lazy(() => import("./pages/Orders"));
 const Customers = React.lazy(() => import("./pages/Customers"));
 const MenuManagement = React.lazy(() => import("./pages/MenuManagement"));
+const Reports = React.lazy(() => import("./pages/Reports"));
+const Promotions = React.lazy(() => import("./pages/Promotions"));
 const ErrorPage = React.lazy(() => import("./pages/ErrorPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
@@ -24,6 +26,8 @@ export default function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/menu" element={<MenuManagement />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/promotions" element={<Promotions />} />
           <Route
             path="/error-400"
             element={
