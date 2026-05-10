@@ -29,21 +29,19 @@
 @theme {
   /* ===== FONTS ===== */
   --font-poppins: "Poppins", sans-serif;
-  --font-barlow: "Barlow", sans-serif;
+  --font-inter: "Inter", sans-serif;
 
   /* ===== COLORS - Palet dari PDF ===== */
-
-  /* Utama - PALET ASLI dari PDF */
-  --color-hijau: #008471;        /* Tropical Rain */
-  --color-pink: #f29cc3;         /* Bubble Gum */
-  --color-ungu: #d1caea;         /* Autumn Lavender */
-  --color-ungu-solid: #9b8bb4;   /* Autumn Lavender lebih gelap untuk teks */
-  --color-peach: #ffc0c0;        /* Peony Bundle */
-  --color-biru-muda: #80b0e8;    /* Airplane View */
-  --color-limeade: #d6d35f;      /* Limeade */
-  --color-tomato: #c45f3f;       /* Tomato Jam */
-  --color-sun: #f4d242;          /* Pure Sun */
-  --color-monet: #898e46;        /* Monet Ponds */
+  --color-hijau: #008471;
+  --color-pink: #f29cc3;
+  --color-ungu: #d1caea;
+  --color-ungu-solid: #9b8bb4;
+  --color-peach: #ffc0c0;
+  --color-biru-muda: #80b0e8;
+  --color-limeade: #d6d35f;
+  --color-tomato: #c45f3f;
+  --color-sun: #f4d242;
+  --color-monet: #898e46;
 
   /* UI */
   --color-latar: #f5f0ff;
@@ -56,5 +54,5 @@
 }
 
 body {
-  @apply font-barlow;
+  font-family: "Inter", "Poppins", sans-serif;
 }

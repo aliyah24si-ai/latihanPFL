@@ -4,7 +4,6 @@ import { SlSettings } from "react-icons/sl";
 export default function Header({ onToggle }) {
   return (
     <div className="flex justify-between items-center px-6 py-4 bg-white shadow-sm">
-      {/* Kiri: tombol toggle + search */}
       <div className="flex items-center gap-4">
         <button
           onClick={onToggle}
@@ -12,7 +11,6 @@ export default function Header({ onToggle }) {
         >
           <FaBars className="text-lg" />
         </button>
-
         <div className="relative">
           <input
             type="text"
@@ -22,21 +20,14 @@ export default function Header({ onToggle }) {
           <FaSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 text-sm" />
         </div>
       </div>
-
-      {/* Kanan: icon + profil */}
       <div className="flex items-center gap-3">
-        {/* Notif - Airplane View */}
         <div className="relative p-2 bg-biru-muda/20 rounded-xl text-biru-muda cursor-pointer">
           <FaBell />
-          <span className="absolute -top-1 -right-1 bg-biru-muda text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-            5
-          </span>
+          <span className="absolute -top-1 -right-1 bg-biru-muda text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">5</span>
         </div>
-        {/* Settings - Tomato Jam */}
         <div className="p-2 bg-peach/40 rounded-xl text-tomato cursor-pointer">
           <SlSettings />
         </div>
-        {/* Profile */}
         <div className="flex items-center gap-3 border-l pl-4 border-gray-200">
           <div className="text-right hidden sm:block">
             <p className="text-sm font-semibold text-gray-700">Admin Yummy</p>
@@ -44,7 +35,7 @@ export default function Header({ onToggle }) {
           </div>
           <img
             src="/foto-admin.jpg"
-            onError={(e) => { e.target.src = "https://avatar.iran.liara.run/public/28" }}
+            onError={(e) => { e.target.src = "https://avatar.iran.liara.run/public/28"; }}
             className="w-9 h-9 rounded-full object-cover"
             alt="avatar"
           />

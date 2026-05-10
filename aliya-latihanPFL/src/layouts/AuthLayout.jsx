@@ -9,14 +9,12 @@ export default function AuthLayout() {
           <h1 className="font-poppins font-extrabold text-4xl text-gray-800">
             Yummy<span className="text-hijau">.</span>
           </h1>
-          <p className="text-teks-samping text-sm font-barlow mt-1">
+          <p className="text-teks-samping text-sm mt-1">
             Catering Admin Dashboard 🍱
           </p>
         </div>
-
         <Outlet />
-
-        <p className="text-center text-xs text-gray-400 mt-6 font-barlow">
+        <p className="text-center text-xs text-gray-400 mt-6">
           © 2025 Yummy Catering Admin Dashboard. All rights reserved.
         </p>
       </div>
