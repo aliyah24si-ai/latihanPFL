@@ -1,59 +1,51 @@
 @import "tailwindcss";
 
-/* ===== FONT FACE - Poppins dari file lokal ===== */
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-ExtraBold.ttf") format("truetype");
-  font-weight: 800;
-  font-style: normal;
-}
-
 @theme {
   /* ===== FONTS ===== */
-  --font-poppins: "Poppins", sans-serif;
+  --font-poppins: "Inter", sans-serif;
+  --font-barlow: "Inter", sans-serif;
   --font-inter: "Inter", sans-serif;
 
-  /* ===== COLORS - Palet dari PDF ===== */
-  --color-hijau: #008471;
+  /* ===== COLOR PALETTE - Quiz Theme ===== */
+
+  /* Primary */
+  --color-navy: #1e2d6b;
+  --color-navy-light: #2d3f8f;
+
+  /* Secondary */
+  --color-green-accent: #4caf50;
+
+  /* Neutral */
+  --color-latar: #f5f6fa;
+  --color-teks: #1f2937;
+  --color-teks-samping: #6b7280;
+  --color-garis: #e8eaf0;
+
+  /* Semantic */
+  --color-merah: #ef4444;
+  --color-kuning: #f59e0b;
+  --color-hijau: #10b981;
+  --color-biru: #3b82f6;
+
+  /* Card Pastel */
+  --color-pastel-kuning: #fef3c7;
+  --color-pastel-pink: #fce7f3;
+  --color-pastel-ungu: #ede9fe;
+  --color-pastel-biru: #dbeafe;
+
+  /* Keep original colors */
   --color-pink: #f29cc3;
   --color-ungu: #d1caea;
-  --color-ungu-solid: #9b8bb4;
   --color-peach: #ffc0c0;
   --color-biru-muda: #80b0e8;
-  --color-limeade: #d6d35f;
   --color-tomato: #c45f3f;
   --color-sun: #f4d242;
   --color-monet: #898e46;
-
-  /* UI */
-  --color-latar: #f5f0ff;
-  --color-teks: #2d2d2d;
-  --color-teks-samping: #6b7280;
-  --color-garis: #e5e7eb;
-  --color-merah: #ef4444;
-  --color-biru: #3b82f6;
-  --color-kuning: #f59e0b;
+  --color-limeade: #d6d35f;
+  --color-ungu-solid: #9b8bb4;
 }
 
 body {
-  font-family: "Inter", "Poppins", sans-serif;
-  font-size: 13px;
+  @apply font-inter;
+  font-family: "Inter", sans-serif;
 }

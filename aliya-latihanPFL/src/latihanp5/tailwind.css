@@ -2,8 +2,9 @@
 
 @theme {
   /* Fonts */
-  --font-poppins: "Poppins", sans-serif;
-  --font-barlow: "Barlow", sans-serif;
+  --font-poppins: "Inter", sans-serif;
+  --font-barlow: "Inter", sans-serif;
+  --font-inter: "Inter", sans-serif;
 
   /* Colors */
   --color-latar: #f3f4f6;
@@ -17,5 +18,6 @@
 }
 
 body {
-  @apply font-barlow;
+  @apply font-inter;
+  font-family: "Inter", sans-serif;
 }

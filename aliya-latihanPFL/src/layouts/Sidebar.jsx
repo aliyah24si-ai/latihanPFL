@@ -1,73 +1,125 @@
 import { NavLink } from "react-router-dom";
+
 import {
-  FaHome, FaShoppingCart, FaUsers, FaUtensils, FaPlus,
-  FaExclamationTriangle, FaLock, FaBan, FaChartBar, FaGift,
+  FaHome,
+  FaShoppingCart,
+  FaUsers,
+  FaUtensils,
+  FaChartBar,
+  FaGift,
+  FaExclamationTriangle,
+  FaLock,
+  FaBan,
 } from "react-icons/fa";
 
 const menuClass = ({ isActive }) =>
-  `flex items-center rounded-2xl px-4 py-3 gap-3 font-medium transition-all text-sm ${
+  `flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
     isActive
-      ? "bg-ungu text-ungu-solid font-bold shadow-sm"
-      : "text-white/80 hover:bg-white/20 hover:text-white"
+      ? "text-navy font-bold bg-blue-50"
+      : "text-teks-samping hover:text-navy hover:bg-gray-50"
   }`;
 
 export default function Sidebar({ isOpen }) {
   return (
     <div
-      style={{ background: "linear-gradient(180deg, #9b8bb4 0%, #d1caea 100%)" }}
-      className={`flex flex-col h-screen sticky top-0 transition-all duration-300 overflow-hidden ${
-        isOpen ? "w-64 p-6 overflow-y-auto" : "w-0 p-0"
+      className={`flex flex-col bg-white border-r border-garis h-screen sticky top-0 transition-all duration-300 overflow-hidden ${
+        isOpen ? "w-52 p-5 overflow-y-auto" : "w-0 p-0"
       }`}
     >
       {/* Logo */}
-      <div className="mb-8 whitespace-nowrap">
-        <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-3 shadow-sm">
-          <span className="text-2xl">🍱</span>
+      <div className="flex items-center gap-2 mb-8 whitespace-nowrap">
+        <div className="relative w-8 h-8 shrink-0">
+          <div className="absolute top-0 left-0 w-5 h-5 rounded-md bg-green-400 opacity-80"></div>
+
+          <div
+            className="absolute bottom-0 right-0 w-5 h-5 rounded-md opacity-90"
+            style={{ backgroundColor: "#1e2d6b" }}
+          ></div>
         </div>
-        <p className="font-poppins font-extrabold text-2xl text-white">
-          Yummy<span className="text-sun">.</span>
-        </p>
-        <p className="text-xs text-white/70 mt-0.5">Catering Admin Dashboard</p>
+
+        <span
+          className="font-poppins font-bold text-sm whitespace-nowrap"
+          style={{ color: "#1e2d6b" }}
+        >
+          Yummy
+        </span>
       </div>
 
       {/* Menu */}
       <ul className="space-y-1 flex-1 whitespace-nowrap">
-        <li><NavLink to="/" end className={menuClass}><FaHome className="text-base shrink-0" /> Dashboard</NavLink></li>
-        <li><NavLink to="/orders" className={menuClass}><FaShoppingCart className="text-base shrink-0" /> Orders</NavLink></li>
-        <li><NavLink to="/customers" className={menuClass}><FaUsers className="text-base shrink-0" /> Customers</NavLink></li>
-        <li><NavLink to="/menu" className={menuClass}><FaUtensils className="text-base shrink-0" /> Menu</NavLink></li>
-        <li><NavLink to="/reports" className={menuClass}><FaChartBar className="text-base shrink-0" /> Reports</NavLink></li>
-        <li><NavLink to="/promotions" className={menuClass}><FaGift className="text-base shrink-0" /> Promotions</NavLink></li>
-        <li className="pt-4">
-          <p className="text-xs text-white/50 uppercase tracking-wider px-4 mb-1">Error Pages</p>
+        <li>
+          <NavLink to="/" end className={menuClass}>
+            <FaHome className="text-base shrink-0" />
+            Dashboard
+          </NavLink>
         </li>
-        <li><NavLink to="/error-400" className={menuClass}><FaExclamationTriangle className="text-base shrink-0" /> Error 400</NavLink></li>
-        <li><NavLink to="/error-401" className={menuClass}><FaLock className="text-base shrink-0" /> Error 401</NavLink></li>
-        <li><NavLink to="/error-403" className={menuClass}><FaBan className="text-base shrink-0" /> Error 403</NavLink></li>
+
+        <li>
+          <NavLink to="/orders" className={menuClass}>
+            <FaShoppingCart className="text-base shrink-0" />
+            Orders
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/customers" className={menuClass}>
+            <FaUsers className="text-base shrink-0" />
+            Customers
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/menu" className={menuClass}>
+            <FaUtensils className="text-base shrink-0" />
+            Menu
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/reports" className={menuClass}>
+            <FaChartBar className="text-base shrink-0" />
+            Reports
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/promotions" className={menuClass}>
+            <FaGift className="text-base shrink-0" />
+            Promotions
+          </NavLink>
+        </li>
+
+        <li className="pt-4">
+          <p className="text-xs text-gray-400 uppercase tracking-wider px-4 mb-1">
+            Error Pages
+          </p>
+        </li>
+
+        <li>
+          <NavLink to="/error-400" className={menuClass}>
+            <FaExclamationTriangle className="text-base shrink-0" />
+            Error 400
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/error-401" className={menuClass}>
+            <FaLock className="text-base shrink-0" />
+            Error 401
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/error-403" className={menuClass}>
+            <FaBan className="text-base shrink-0" />
+            Error 403
+          </NavLink>
+        </li>
       </ul>
 
-      {/* Footer */}
-      <div className="mt-6 whitespace-nowrap">
-        <div className="bg-white/20 rounded-2xl p-4">
-          <div className="flex items-center gap-3">
-            <img
-              src="/foto-admin.jpg"
-              onError={(e) => { e.target.src = "https://avatar.iran.liara.run/public/28"; }}
-              className="w-10 h-10 rounded-full shrink-0 border-2 border-white object-cover"
-              alt="avatar"
-            />
-            <div className="text-white text-xs">
-              <p className="font-semibold">Admin Yummy</p>
-              <p className="text-white/60">Catering Manager</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1 bg-white rounded-xl px-3 py-2 cursor-pointer mt-3 justify-center hover:bg-white/90">
-            <FaPlus className="text-ungu-solid text-xs" />
-            <span className="text-ungu-solid text-xs font-semibold">Add Menus</span>
-          </div>
-        </div>
-        <p className="text-xs text-white/40 mt-3 text-center">© 2025 Yummy Catering</p>
-      </div>
+      <p className="text-xs text-gray-400 mt-6 whitespace-nowrap">
+        © 2025 Yummy Catering
+      </p>
     </div>
   );
 }

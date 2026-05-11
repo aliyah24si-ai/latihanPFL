@@ -1,61 +1,88 @@
 import { Link } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
 
 export default function Register() {
-  const [showPass, setShowPass] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-
   return (
     <div>
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-700 font-poppins">Yuk Daftar Dulu! ✨</h2>
-        <p className="text-teks-samping text-sm mt-1">Buat akun baru dan mulai kelola cateringmu 🍱</p>
-      </div>
+      <h1 className="text-3xl font-bold text-teks mb-1">
+        Create Account
+      </h1>
+
+      <p className="text-teks-samping text-sm mb-8">
+        Daftar untuk akses dashboard Yummy Catering
+      </p>
 
       <form>
-        <div className="mb-5">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-          <input type="text" placeholder="Nama kamu siapa? 😊"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl shadow-sm placeholder-gray-300 outline-none focus:border-hijau transition" />
+        {/* FULL NAME */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-teks mb-1">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            placeholder="Your full name"
+            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition"
+          />
         </div>
-        <div className="mb-5">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-          <input type="email" placeholder="kamu@email.com"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl shadow-sm placeholder-gray-300 outline-none focus:border-hijau transition" />
+
+        {/* EMAIL */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-teks mb-1">
+            Email
+          </label>
+
+          <input
+            type="email"
+            placeholder="Example@email.com"
+            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition"
+          />
         </div>
-        <div className="mb-5">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <div className="relative">
-            <input type={showPass ? "text" : "password"} placeholder="••••••••"
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl shadow-sm placeholder-gray-300 outline-none focus:border-hijau transition pr-10" />
-            <button type="button" onClick={() => setShowPass(!showPass)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-              {showPass ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          </div>
+
+        {/* PASSWORD */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-teks mb-1">
+            Password
+          </label>
+
+          <input
+            type="password"
+            placeholder="at least 8 characters"
+            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition"
+          />
         </div>
+
+        {/* CONFIRM PASSWORD */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
-          <div className="relative">
-            <input type={showConfirm ? "text" : "password"} placeholder="••••••••"
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl shadow-sm placeholder-gray-300 outline-none focus:border-hijau transition pr-10" />
-            <button type="button" onClick={() => setShowConfirm(!showConfirm)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-              {showConfirm ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          </div>
+          <label className="block text-sm font-medium text-teks mb-1">
+            Confirm Password
+          </label>
+
+          <input
+            type="password"
+            placeholder="Repeat password"
+            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition"
+          />
         </div>
-        <button type="submit"
-          className="w-full font-semibold py-2 px-4 rounded-xl transition duration-300"
-          style={{ backgroundColor: "#d1caea", color: "#4a3a6b" }}>
-          Daftar Sekarang 🎉
+
+        {/* BUTTON */}
+        <button
+          type="submit"
+          className="w-full py-3 rounded-lg font-semibold text-white text-sm"
+          style={{ backgroundColor: "#1e2d6b" }}
+        >
+          Sign up
         </button>
       </form>
 
-      <p className="text-center text-sm text-gray-500 mt-5">
-        Udah punya akun?{" "}
-        <Link to="/login" className="text-hijau font-semibold hover:underline">Login di sini</Link>
+      <p className="text-center text-sm text-gray-500 mt-6">
+        Already have an account?{" "}
+        <Link
+          to="/login"
+          className="font-semibold hover:underline"
+          style={{ color: "#1e2d6b" }}
+        >
+          Sign in
+        </Link>
       </p>
     </div>
   );
