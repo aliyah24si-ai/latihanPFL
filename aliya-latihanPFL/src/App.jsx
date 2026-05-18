@@ -4,18 +4,20 @@ import Loading from "./components/Loading";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
-const Dashboard = React.lazy(() => import("./pages/Dashboard"));
-const Orders = React.lazy(() => import("./pages/Orders"));
-const Customers = React.lazy(() => import("./pages/Customers"));
-const MenuManagement = React.lazy(() => import("./pages/MenuManagement"));
-const Reports = React.lazy(() => import("./pages/Reports"));
-const Promotions = React.lazy(() => import("./pages/Promotions"));
-const ErrorPage = React.lazy(() => import("./pages/ErrorPage"));
-const NotFound = React.lazy(() => import("./pages/NotFound"));
+const Dashboard = React.lazy(() => import("./pages/main/Dashboard"));
+const Orders = React.lazy(() => import("./pages/main/Orders"));
+const Customers = React.lazy(() => import("./pages/main/Customers"));
+const MenuManagement = React.lazy(() => import("./pages/main/MenuManagement"));
+const Reports = React.lazy(() => import("./pages/main/Reports"));
+const Promotions = React.lazy(() => import("./pages/main/Promotions"));
+const Components = React.lazy(() => import("./pages/main/Components"));
+const ErrorPage = React.lazy(() => import("./pages/main/ErrorPage"));
+const NotFound = React.lazy(() => import("./pages/main/NotFound"));
 
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
 const Forgot = React.lazy(() => import("./pages/auth/Forgot"));
+
 
 export default function App() {
   return (
@@ -28,6 +30,7 @@ export default function App() {
           <Route path="/menu" element={<MenuManagement />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/promotions" element={<Promotions />} />
+          <Route path="/components" element={<Components />} />
           <Route
             path="/error-400"
             element={

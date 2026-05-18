@@ -10,6 +10,7 @@ import {
   FaExclamationTriangle,
   FaLock,
   FaBan,
+  FaPuzzlePiece,
 } from "react-icons/fa";
 
 const menuClass = ({ isActive }) =>
@@ -86,6 +87,13 @@ export default function Sidebar({ isOpen }) {
           <NavLink to="/promotions" className={menuClass}>
             <FaGift className="text-base shrink-0" />
             Promotions
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/components" className={menuClass}>
+            <FaPuzzlePiece className="text-base shrink-0" />
+            Components
           </NavLink>
         </li>
 
