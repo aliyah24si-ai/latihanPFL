@@ -1,6 +1,8 @@
 import ActivityFeed from "../../components/ui/ActivityFeed";
 import Avatar from "../../components/ui/Avatar";
 import PageHeader from "../../components/ui/PageHeader";
+import { ScrollArea } from "../../components/ui/scroll-area";
+import { Separator } from "../../components/ui/separator";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -14,12 +16,16 @@ const recentActivity = [
   { icon: "🛒", text: "Order baru dari Siti Rahayu",   time: "Hari ini, 10.30 AM" },
   { icon: "✅", text: "Paket Premium dikirim ke Budi", time: "Hari ini, 10.00 AM" },
   { icon: "🎁", text: "Promo VIP Cashback diaktifkan", time: "Kemarin, 01.00 PM" },
+  { icon: "👤", text: "Customer baru: Dewi Lestari",   time: "Kemarin, 11.00 AM" },
+  { icon: "📦", text: "Order #ORD-028 siap kirim",     time: "Kemarin, 09.30 AM" },
 ];
 
 const tasks = [
   { bg: "#FEE2E2", border: "#EF4444", icon: "🔴", text: "Order Pending belum diproses",    time: "Hari ini, 09.00 AM" },
   { bg: "#FEF3C7", border: "#F59E0B", icon: "⚠️", text: "Stok Paket Harian hampir habis", time: "Hari ini, 09.00 AM" },
   { bg: "#F9FAFB", border: "#E5E7EB", icon: "📦", text: "Cek pengiriman order #ORD-028",   time: "Besok, 08.00 AM" },
+  { bg: "#EDE9FE", border: "#8B5CF6", icon: "🎁", text: "Aktifkan promo akhir bulan",      time: "Besok, 10.00 AM" },
+  { bg: "#DBEAFE", border: "#3B82F6", icon: "📊", text: "Buat laporan mingguan",           time: "Jumat, 08.00 AM" },
 ];
 
 const todayOrders = [
@@ -94,34 +100,45 @@ export default function Dashboard() {
         {/* ── KANAN ─────────────────────────────────────────────────────── */}
         <div className="space-y-4">
 
-          {/* Recent Activity */}
+          {/* Recent Activity — pakai ScrollArea + Separator shadcn */}
           <div className="rounded-2xl p-5 text-white" style={{ backgroundColor: "#1e2d6b" }}>
-            <h3 className="font-semibold mb-4">Recent Activity</h3>
-            <ActivityFeed items={recentActivity} dark />
+            <h3 className="font-semibold mb-1">Recent Activity</h3>
+            <p className="text-xs text-white/50 mb-3">Update terbaru</p>
+            {/* Separator shadcn */}
+            <Separator className="bg-white/10 mb-3" />
+            {/* ScrollArea shadcn */}
+            <ScrollArea className="h-[160px]">
+              <ActivityFeed items={recentActivity} dark />
+            </ScrollArea>
           </div>
 
-          {/* Tasks */}
+          {/* Tasks — pakai ScrollArea + Separator shadcn */}
           <div className="bg-white rounded-2xl p-5 border border-garis">
             <h3 className="font-semibold text-teks mb-1">Tasks</h3>
-            <p className="text-xs text-teks-samping mb-3">Priority</p>
-            <div className="space-y-2">
-              {tasks.map((task, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between p-3 rounded-xl border"
-                  style={{ backgroundColor: task.bg, borderColor: task.border + "40" }}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">{task.icon}</span>
-                    <div>
-                      <p className="text-xs font-medium text-teks">{task.text}</p>
-                      <p className="text-xs text-teks-samping">{task.time}</p>
+            <p className="text-xs text-teks-samping mb-2">Priority</p>
+            {/* Separator shadcn */}
+            <Separator className="mb-3" />
+            {/* ScrollArea shadcn */}
+            <ScrollArea className="h-[200px]">
+              <div className="space-y-2 pr-2">
+                {tasks.map((task, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-3 rounded-xl border"
+                    style={{ backgroundColor: task.bg, borderColor: task.border + "40" }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">{task.icon}</span>
+                      <div>
+                        <p className="text-xs font-medium text-teks">{task.text}</p>
+                        <p className="text-xs text-teks-samping">{task.time}</p>
+                      </div>
                     </div>
+                    <span className="text-teks-samping text-sm">›</span>
                   </div>
-                  <span className="text-teks-samping text-sm">›</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </ScrollArea>
           </div>
 
         </div>

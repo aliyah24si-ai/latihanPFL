@@ -1,6 +1,16 @@
 import { FaBell, FaBars } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+} from "../components/ui/navigation-menu";
 
 export default function Header({ onToggle }) {
+  const navigate = useNavigate();
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -18,6 +28,42 @@ export default function Header({ onToggle }) {
         >
           <FaBars className="text-base" />
         </button>
+
+        {/* Navigation Menu shadcn */}
+        <NavigationMenu className="hidden md:flex">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="text-sm text-teks-samping font-medium">
+                Menu
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid grid-cols-2 gap-1 p-3 w-[340px]">
+                  {[
+                    { label: "Dashboard", path: "/", icon: "🏠", desc: "Ringkasan data CRM" },
+                    { label: "Orders", path: "/orders", icon: "🛒", desc: "Kelola pesanan masuk" },
+                    { label: "Customers", path: "/customers", icon: "👥", desc: "Data pelanggan setia" },
+                    { label: "Menu", path: "/menu", icon: "🍱", desc: "Manajemen menu catering" },
+                    { label: "Reports", path: "/reports", icon: "📊", desc: "Laporan & statistik" },
+                    { label: "Promotions", path: "/promotions", icon: "🎁", desc: "Promo & diskon aktif" },
+                  ].map((item) => (
+                    <li key={item.path}>
+                      <NavigationMenuLink
+                        onClick={() => navigate(item.path)}
+                        className="cursor-pointer rounded-lg p-2.5 hover:bg-blue-50 block"
+                      >
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className="text-base">{item.icon}</span>
+                          <span className="text-sm font-semibold text-teks">{item.label}</span>
+                        </div>
+                        <p className="text-xs text-teks-samping leading-snug">{item.desc}</p>
+                      </NavigationMenuLink>
+                    </li>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
 
       {/* Kanan */}
