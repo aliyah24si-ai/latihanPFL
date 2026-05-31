@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd aliya-latihanPFL && npm install && npm run build",
+  "outputDirectory": "aliya-latihanPFL/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
