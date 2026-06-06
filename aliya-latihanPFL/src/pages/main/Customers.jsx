@@ -96,6 +96,7 @@ export default function Customers() {
       {/* Search + Table */}
       <div className="px-4 space-y-3">
         <SearchBar
+          autoFocus
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onClear={() => setSearch("")}
