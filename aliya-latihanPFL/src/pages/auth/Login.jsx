@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import { authAPI } from "../../services/authAPI";
 
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
@@ -18,59 +18,27 @@ export default function Login() {
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-
-    setDataForm({
-      ...dataForm,
-      [name]: value,
-    });
+    setDataForm({ ...dataForm, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     setError("");
 
-    axios
-      .post("https://dummyjson.com/user/login", {
-        username: dataForm.email,
-        password: dataForm.password,
-      })
-
-      .then((response) => {
-        if (response.status !== 200) {
-          setError(response.data.message);
-          return;
-        }
-
-        navigate("/");
-      })
-
-      .catch((err) => {
-        if (err.response) {
-          setError(
-            err.response.data.message ||
-              "Username atau password salah!"
-          );
-        } else {
-          setError(
-            err.message ||
-              "Koneksi bermasalah, coba lagi ya!"
-          );
-        }
-      })
-
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      await authAPI.login(dataForm.email, dataForm.password);
+      navigate("/");
+    } catch (err) {
+      setError(err.message || "Email atau password salah!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-teks mb-1">
-        Welcome Back
-      </h1>
-
+      <h1 className="text-3xl font-bold text-teks mb-1">Welcome Back</h1>
       <p className="text-teks-samping text-sm mb-8">
         Masuk ke dashboard Yummy Catering
       </p>
@@ -85,10 +53,7 @@ export default function Login() {
       {loading && (
         <div className="bg-gray-50 mb-5 p-3 text-sm rounded-lg flex items-center gap-2 border border-gray-100">
           <ImSpinner2 className="animate-spin text-navy" />
-
-          <span className="text-gray-500">
-            Mohon tunggu...
-          </span>
+          <span className="text-gray-500">Mohon tunggu...</span>
         </div>
       )}
 
@@ -98,14 +63,15 @@ export default function Login() {
           <label className="block text-sm font-medium text-teks mb-1">
             Email
           </label>
-
           <input
-            type="text"
+            type="email"
             name="email"
             value={dataForm.email}
             onChange={handleChange}
-            placeholder="Example@email.com"
-            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition"
+            placeholder="example@email.com"
+            disabled={loading}
+            required
+            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition disabled:opacity-60"
           />
         </div>
 
@@ -114,23 +80,21 @@ export default function Login() {
           <label className="block text-sm font-medium text-teks mb-1">
             Password
           </label>
-
           <input
             type="password"
             name="password"
             value={dataForm.password}
             onChange={handleChange}
             placeholder="at least 8 characters"
-            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition"
+            disabled={loading}
+            required
+            className="w-full px-4 py-3 bg-latar border border-garis rounded-lg text-sm outline-none focus:border-navy transition disabled:opacity-60"
           />
         </div>
 
         {/* FORGOT PASSWORD */}
         <div className="flex justify-end mb-6">
-          <Link
-            to="/forgot"
-            className="text-sm text-navy hover:underline"
-          >
+          <Link to="/forgot" className="text-sm text-navy hover:underline">
             Forgot Password?
           </Link>
         </div>
@@ -142,12 +106,12 @@ export default function Login() {
           className="w-full py-3 rounded-lg font-semibold text-white text-sm transition disabled:opacity-60"
           style={{ backgroundColor: "#1e2d6b" }}
         >
-          Sign in
+          {loading ? "Signing in..." : "Sign in"}
         </button>
       </form>
 
       <p className="text-center text-sm text-gray-500 mt-6">
-        Don't you have an account?{" "}
+        Don't have an account?{" "}
         <Link
           to="/register"
           className="text-navy font-semibold hover:underline"

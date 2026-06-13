@@ -39,12 +39,13 @@ export default function Header({ onToggle }) {
               <NavigationMenuContent>
                 <ul className="grid grid-cols-2 gap-1 p-3 w-[340px]">
                   {[
-                    { label: "Dashboard", path: "/", icon: "🏠", desc: "Ringkasan data CRM" },
-                    { label: "Orders", path: "/orders", icon: "🛒", desc: "Kelola pesanan masuk" },
-                    { label: "Customers", path: "/customers", icon: "👥", desc: "Data pelanggan setia" },
-                    { label: "Menu", path: "/menu", icon: "🍱", desc: "Manajemen menu catering" },
-                    { label: "Reports", path: "/reports", icon: "📊", desc: "Laporan & statistik" },
-                    { label: "Promotions", path: "/promotions", icon: "🎁", desc: "Promo & diskon aktif" },
+                    { label: "Dash. Penjualan",  path: "/dashboard-penjualan", icon: "📈", desc: "Ringkasan data penjualan" },
+                    { label: "Dash. Pelanggan",  path: "/dashboard-pelanggan", icon: "👥", desc: "Ringkasan data pelanggan" },
+                    { label: "Orders",           path: "/orders",              icon: "🛒", desc: "Kelola pesanan masuk" },
+                    { label: "Customers",        path: "/customers",           icon: "🤝", desc: "Data pelanggan setia" },
+                    { label: "Menu",             path: "/menu",                icon: "🍱", desc: "Manajemen menu catering" },
+                    { label: "Promotions",       path: "/promotions",          icon: "🎁", desc: "Promo & diskon aktif" },
+                    { label: "Users",            path: "/users",               icon: "🛡️", desc: "Manajemen akun pengguna" },
                   ].map((item) => (
                     <li key={item.path}>
                       <NavigationMenuLink

@@ -85,14 +85,6 @@ export default function Customers() {
         </Button>
       </PageHeader>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-4 mb-4">
-        <StatCard variant="white" label="Total Customers" value={customers.length} icon="👥" />
-        <StatCard variant="white" label="Gold Members" value={customers.filter((c) => c.loyalty === "Gold").length} icon="🥇" />
-        <StatCard variant="white" label="Silver Members" value={customers.filter((c) => c.loyalty === "Silver").length} icon="🥈" />
-        <StatCard variant="white" label="Bronze Members" value={customers.filter((c) => c.loyalty === "Bronze").length} icon="🥉" />
-      </div>
-
       {/* Search + Table */}
       <div className="px-4 space-y-3">
         <SearchBar
