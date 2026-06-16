@@ -11,10 +11,11 @@ const Customers           = React.lazy(() => import("./pages/main/Customers"));
 const MenuManagement      = React.lazy(() => import("./pages/main/MenuManagement"));
 const Users               = React.lazy(() => import("./pages/main/Users"));
 const Promotions          = React.lazy(() => import("./pages/main/Promotions"));
+const Feedbacks = React.lazy(() => import("./pages/main/Feedbacks"));
 const Components          = React.lazy(() => import("./pages/main/Components"));
 const ErrorPage           = React.lazy(() => import("./pages/main/ErrorPage"));
-const NotFound            = React.lazy(() => import("./pages/main/NotFound"));
 
+const NotFound            = React.lazy(() => import("./pages/main/NotFound"));
 const Login    = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
 const Forgot   = React.lazy(() => import("./pages/auth/Forgot"));
@@ -23,6 +24,10 @@ const GuestMenu    = React.lazy(() => import("./pages/guest/GuestMenu"));
 const GuestPromo   = React.lazy(() => import("./pages/guest/GuestPromo"));
 const GuestService = React.lazy(() => import("./pages/guest/GuestService"));
 const GuestReward  = React.lazy(() => import("./pages/guest/GuestReward"));
+
+const MemberLogin     = React.lazy(() => import("./pages/member/MemberLogin"));
+const MemberRegister  = React.lazy(() => import("./pages/member/MemberRegister"));
+const MemberDashboard = React.lazy(() => import("./pages/member/MemberDashboard"));
 
 export default function App() {
   return (
@@ -39,6 +44,7 @@ export default function App() {
           <Route path="/menu"       element={<MenuManagement />} />
           <Route path="/users"      element={<Users />} />
           <Route path="/promotions" element={<Promotions />} />
+          <Route path="/feedbacks"  element={<Feedbacks />} />
           <Route path="/components" element={<Components />} />
 
           <Route path="/error-400" element={<ErrorPage code={400} description="Permintaanmu ga bisa diproses nih 😅" image="🤔" />} />
@@ -54,11 +60,16 @@ export default function App() {
 
         <Route path="*" element={<NotFound />} />
 
-        {/* ── Guest Pages (layout sendiri, bukan admin) ── */}
+        {/* ── Guest Pages ── */}
         <Route path="/guest"         element={<GuestMenu />} />
         <Route path="/guest/promo"   element={<GuestPromo />} />
         <Route path="/guest/service" element={<GuestService />} />
         <Route path="/guest/reward"  element={<GuestReward />} />
+
+        {/* ── Member Pages ── */}
+        <Route path="/member/login"     element={<MemberLogin />} />
+        <Route path="/member/register"  element={<MemberRegister />} />
+        <Route path="/member/dashboard" element={<MemberDashboard />} />
       </Routes>
     </Suspense>
   );

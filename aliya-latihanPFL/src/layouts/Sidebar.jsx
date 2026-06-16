@@ -13,6 +13,7 @@ import {
   FaChartLine,
   FaChartPie,
   FaExternalLinkAlt,
+  FaCommentAlt,
 } from "react-icons/fa";
 
 const menuClass = ({ isActive }) =>
@@ -109,6 +110,12 @@ export default function Sidebar({ isOpen }) {
           <NavLink to="/users" className={menuClass}>
             <FaUserShield className="text-base shrink-0" />
             Users
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/feedbacks" className={menuClass}>
+            <FaCommentAlt className="text-base shrink-0" />
+            Feedbacks
           </NavLink>
         </li>
         <li>
