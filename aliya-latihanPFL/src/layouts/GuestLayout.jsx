@@ -14,30 +14,43 @@ const navLinks = [
 export default function GuestLayout({ children }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [menuOpen,  setMenuOpen]  = useState(false);
-  const [member,    setMember]    = useState(null); // null = belum cek, false = tidak login
+  const [menuOpen, setMenuOpen] = useState(false);
+  // null = sedang cek session (loading), false = tidak login, object = data member
+  const [member, setMember] = useState(null);
 
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        try {
-          const profile = await membersAPI.getProfile(session.user.id);
-          setMember(profile);
-        } catch {
-          setMember(false);
-        }
-      } else {
-        setMember(false);
+    let mounted = true;
+
+    const loadMember = async (session) => {
+      if (!session) {
+        if (mounted) setMember(false);
+        return;
+      }
+      try {
+        const profile = await membersAPI.getProfile(session.user.id);
+        if (mounted) setMember(profile);
+      } catch {
+        if (mounted) setMember(false);
       }
     };
-    checkSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (!session) setMember(false);
+    // Cek session awal sekali saja
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      loadMember(session);
     });
-    return () => subscription.unsubscribe();
-  }, []);
+
+    // Dengarkan perubahan auth (logout dari halaman lain, dll)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (!session) {
+        if (mounted) setMember(false);
+      }
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []); // kosong — hanya jalan sekali saat mount
 
   const handleSignOut = async () => {
     await membersAPI.logout();
@@ -45,7 +58,9 @@ export default function GuestLayout({ children }) {
     navigate("/guest");
   };
 
+  // Saat masih cek session, tampilkan placeholder kosong supaya tidak glitch
   const isLoggedIn = member && member !== false;
+  const isChecking = member === null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -78,18 +93,21 @@ export default function GuestLayout({ children }) {
           </ul>
 
           {/* Desktop buttons — berubah sesuai status login */}
-          <div className="hidden md:flex items-center gap-2">
-            {isLoggedIn ? (
+          <div className="hidden md:flex items-center gap-2 min-w-[180px] justify-end">
+            {isChecking ? (
+              // Placeholder saat cek session — ukuran sama supaya navbar tidak loncat
+              <div className="h-8 w-36 rounded-lg bg-gray-100 animate-pulse" />
+            ) : isLoggedIn ? (
               <>
                 <Link to="/member/dashboard"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold border transition"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold border transition-all"
                   style={{ borderColor: "#1e2d6b", color: "#1e2d6b" }}
                 >
                   <FaUserCircle />
                   {member.full_name?.split(" ")[0]}
                 </Link>
                 <button onClick={handleSignOut}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold text-red-500 border border-red-200 hover:bg-red-50 transition"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold text-red-500 border border-red-200 hover:bg-red-50 transition-all"
                 >
                   <FaSignOutAlt /> Sign Out
                 </button>
@@ -97,13 +115,13 @@ export default function GuestLayout({ children }) {
             ) : (
               <>
                 <Link to="/member/login"
-                  className="px-4 py-2 text-sm font-semibold rounded-lg border transition"
+                  className="px-4 py-2 text-sm font-semibold rounded-lg border transition-all"
                   style={{ borderColor: "#1e2d6b", color: "#1e2d6b" }}
                 >
                   Login Member
                 </Link>
                 <Link to="/member/register"
-                  className="px-4 py-2 text-sm font-semibold rounded-lg text-white transition"
+                  className="px-4 py-2 text-sm font-semibold rounded-lg text-white transition-all"
                   style={{ backgroundColor: "#1e2d6b" }}
                 >
                   Daftar Member
