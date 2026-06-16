@@ -302,19 +302,21 @@ export default function GuestMenu() {
             ))}
           </div>
 
-          {/* CTA daftar member */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-500 mb-3">
-              Ingin berbagi pengalamanmu juga?
-            </p>
-            <Link
-              to="/member/login"
-              className="inline-block px-5 py-2.5 rounded-xl text-white text-sm font-semibold"
-              style={{ backgroundColor: "#1e2d6b" }}
-            >
-              Login Member untuk Beri Feedback
-            </Link>
-          </div>
+          {/* CTA daftar member — hanya tampil kalau belum login */}
+          {!memberProfile && (
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-500 mb-3">
+                Ingin berbagi pengalamanmu juga?
+              </p>
+              <Link
+                to="/member/login"
+                className="inline-block px-5 py-2.5 rounded-xl text-white text-sm font-semibold"
+                style={{ backgroundColor: "#1e2d6b" }}
+              >
+                Login Member untuk Beri Feedback
+              </Link>
+            </div>
+          )}
         </div>
       )}
 
