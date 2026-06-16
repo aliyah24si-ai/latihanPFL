@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import GuestLayout from "../../layouts/GuestLayout";
 import { ordersAPI } from "../../services/ordersAPI";
 import { membersAPI } from "../../services/membersAPI";
+import { feedbackAPI } from "../../services/feedbackAPI";
 import { supabase } from "../../services/supabaseClient";
 import { BsCheckCircleFill, BsFillExclamationDiamondFill } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
@@ -101,11 +102,17 @@ export default function GuestMenu() {
   }, []);
 
   const [selectedMenu, setSelectedMenu] = useState(null);
-  const [showDetail,   setShowDetail]   = useState(false); // detail vs form pesan
+  const [showDetail,   setShowDetail]   = useState(false);
   const [form,   setForm]   = useState(emptyForm);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error,   setError]   = useState("");
+
+  // Feedback yang sudah approved
+  const [feedbacks, setFeedbacks] = useState([]);
+  useEffect(() => {
+    feedbackAPI.fetchApproved().then(setFeedbacks).catch(() => setFeedbacks([]));
+  }, []);
 
   const handleOpen = (item) => {
     setSelectedMenu(item);
@@ -257,6 +264,59 @@ export default function GuestMenu() {
           </div>
         ))}
       </div>
+
+      {/* ── Section Testimoni ─────────────────────────────────────── */}
+      {feedbacks.length > 0 && (
+        <div className="mt-14">
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-1">Kata Pelanggan Kami</h2>
+            <p className="text-sm text-gray-500">Testimoni nyata dari member Yummy Catering</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {feedbacks.slice(0, 6).map((fb, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                {/* Bintang */}
+                <div className="flex gap-0.5 mb-3">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <span key={s} className={s < fb.rating ? "text-amber-400" : "text-gray-200"}>★</span>
+                  ))}
+                </div>
+                {/* Pesan */}
+                <p className="text-sm text-gray-600 leading-relaxed mb-4 italic">
+                  "{fb.message}"
+                </p>
+                {/* Nama */}
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                    style={{ backgroundColor: "#1e2d6b" }}
+                  >
+                    {fb.member_name?.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-gray-800">{fb.member_name}</p>
+                    <p className="text-xs text-gray-400">Member Yummy</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA daftar member */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-500 mb-3">
+              Ingin berbagi pengalamanmu juga?
+            </p>
+            <Link
+              to="/member/login"
+              className="inline-block px-5 py-2.5 rounded-xl text-white text-sm font-semibold"
+              style={{ backgroundColor: "#1e2d6b" }}
+            >
+              Login Member untuk Beri Feedback
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* ── Modal Detail + Form ────────────────────────────────────── */}
       {selectedMenu && (
