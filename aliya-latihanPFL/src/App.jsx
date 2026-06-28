@@ -29,6 +29,8 @@ const MemberLogin     = React.lazy(() => import("./pages/member/MemberLogin"));
 const MemberRegister  = React.lazy(() => import("./pages/member/MemberRegister"));
 const MemberDashboard = React.lazy(() => import("./pages/member/MemberDashboard"));
 
+const LandingPage = React.lazy(() => import("./pages/landing/LandingPage"));
+
 export default function App() {
   return (
     <Suspense fallback={<Loading />}>
@@ -70,6 +72,9 @@ export default function App() {
         <Route path="/member/login"     element={<MemberLogin />} />
         <Route path="/member/register"  element={<MemberRegister />} />
         <Route path="/member/dashboard" element={<MemberDashboard />} />
+
+        {/* ── Landing Page ── */}
+        <Route path="/landing" element={<LandingPage />} />
       </Routes>
     </Suspense>
   );
