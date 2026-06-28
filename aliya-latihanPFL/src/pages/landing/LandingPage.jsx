@@ -2,286 +2,307 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaUsers, FaChartBar, FaClipboardList,
-  FaGift, FaRocket, FaShieldAlt,
-  FaCheckCircle, FaTimesCircle,
+  FaGift, FaCheckCircle, FaWhatsapp,
+  FaStar, FaTrophy, FaBars, FaTimes,
 } from "react-icons/fa";
 
-// ── PRD V3: Landing Page CRM — Final ─────────────────────────────────────────
+// ── PRD V3 FINAL ─────────────────────────────────────────────────────────────
+// Gambar yang perlu disiapkan di public/images/:
+//   hero-catering.jpg  → foto makanan/nasi kotak menarik (landscape)
+//   about-catering.jpg → foto tim/dapur catering (landscape)
+//   feature-order.jpg  → foto orang pesan makanan (landscape)
+
+const NAVY = "#1e2d6b";
 
 const features = [
-  { icon: <FaUsers />,         title: "Manajemen Pelanggan",  desc: "Data pelanggan tersimpan rapi, lengkap dengan level loyalitas otomatis." },
-  { icon: <FaClipboardList />, title: "Pesanan Real-Time",    desc: "Pesanan masuk otomatis dari halaman publik, admin update status seketika." },
-  { icon: <FaChartBar />,      title: "Dashboard Analitik",   desc: "Dua dashboard terpisah: penjualan dan pelanggan, semua data real-time." },
-  { icon: <FaGift />,          title: "Promo & Loyalty",      desc: "Atur promo berdasarkan kuota, level member naik otomatis sesuai order." },
-  { icon: <FaRocket />,        title: "Halaman Publik",       desc: "Guest bisa lihat menu lengkap, promo, dan langsung pesan tanpa login." },
-  { icon: <FaShieldAlt />,     title: "Auth Supabase",        desc: "Login admin dan member terpisah, aman menggunakan Supabase Auth." },
+  { icon: <FaClipboardList />, title: "Pesanan Otomatis",       desc: "Pesanan masuk langsung dari halaman publik, admin bisa update status seketika." },
+  { icon: <FaUsers />,         title: "Manajemen Pelanggan",    desc: "Data pelanggan, riwayat pesanan, dan level loyalitas tersimpan rapi." },
+  { icon: <FaChartBar />,      title: "Dashboard Real-Time",    desc: "Pantau penjualan dan pelanggan dari dua dashboard yang terpisah dan jelas." },
+  { icon: <FaGift />,          title: "Promo & Loyalty",        desc: "Reward otomatis naik level Bronze → Silver → Gold sesuai jumlah pesanan." },
 ];
 
-const steps = [
-  { num: "01", title: "Daftar Gratis",       desc: "Buat akun member dalam 30 detik. Tidak perlu kartu kredit." },
-  { num: "02", title: "Pilih Menu & Pesan",  desc: "Lihat menu lengkap, klik pesan, isi alamat — selesai." },
-  { num: "03", title: "Kumpulkan Reward",    desc: "Setiap pesanan menambah level loyalty-mu secara otomatis." },
+const whyUs = [
+  { icon: "🚀", title: "Mudah Dipakai",      desc: "Daftar 30 detik, langsung bisa pesan." },
+  { icon: "🔒", title: "Aman & Terpercaya",  desc: "Login via Supabase Auth, data terlindungi." },
+  { icon: "📱", title: "Mobile Friendly",    desc: "Tampil sempurna di HP maupun laptop." },
+  { icon: "⚡", title: "Real-Time Update",   desc: "Status pesanan & data selalu up to date." },
+];
+
+const stats = [
+  { value: "500+",  label: "Pelanggan Aktif" },
+  { value: "98%",   label: "Kepuasan" },
+  { value: "12rb+", label: "Pesanan" },
+  { value: "3",     label: "Kota" },
 ];
 
 const testimonials = [
-  { name: "Siti Rahayu",  role: "Member Gold",    text: "Pesan catering jadi jauh lebih mudah. Status pesanan bisa dipantau langsung dari HP!" },
-  { name: "Budi Santoso", role: "Pelanggan Loyal", text: "Reward loyalty-nya beneran bisa diklaim. Dapat free ongkir tiap bulan, senang banget." },
-  { name: "Dewi Lestari", role: "Member Silver",   text: "Daftar member gampang banget, langsung bisa pesan. Aplikasinya rapi dan cepat." },
+  { name: "Siti Rahayu",  role: "Member Gold",    star: 5, text: "Pesan catering jadi jauh lebih mudah. Status pesanan bisa dipantau langsung!" },
+  { name: "Budi Santoso", role: "Pelanggan Loyal", star: 5, text: "Reward loyalty-nya beneran bisa diklaim. Dapat free ongkir tiap bulan!" },
+  { name: "Dewi Lestari", role: "Member Silver",   star: 5, text: "Daftar member gampang, langsung bisa pesan. Rapi dan cepat." },
 ];
 
 const faqs = [
-  { q: "Apakah Yummy CRM gratis?",           a: "Ya, pendaftaran member sepenuhnya gratis. Langsung bisa pesan dan kumpulkan poin loyalty." },
-  { q: "Bagaimana cara mendaftar?",           a: "Klik Daftar Gratis, isi nama, email, dan password. Selesai — langsung bisa login dan pesan." },
-  { q: "Apakah pesanan saya bisa dipantau?",  a: "Bisa. Setelah login member, semua riwayat pesanan dan statusnya tampil di dashboard." },
-  { q: "Bagaimana sistem loyalty bekerja?",   a: "Otomatis. Makin banyak order, level naik: Bronze → Silver → Gold, dengan reward makin besar." },
+  { q: "Apakah gratis?",                     a: "Ya, pendaftaran member sepenuhnya gratis. Langsung bisa pesan dan kumpulkan poin loyalty." },
+  { q: "Bagaimana cara mendaftar?",           a: "Klik Daftar Gratis → isi nama, email, password → selesai, langsung bisa login." },
+  { q: "Bagaimana sistem loyalty bekerja?",   a: "Otomatis. Makin banyak pesanan, level naik dari Bronze → Silver → Gold dengan reward makin besar." },
+  { q: "Apakah pesanan bisa dipantau?",       a: "Bisa. Setelah login member, semua riwayat pesanan dan statusnya tampil di dashboard." },
 ];
 
 export default function LandingPage() {
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq,   setOpenFaq]   = useState(null);
+  const [menuOpen,  setMenuOpen]  = useState(false);
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 font-sans">
+    <div className="min-h-screen bg-white font-sans text-gray-800">
 
-      {/* ── NAVBAR ──────────────────────────────────────────────────────── */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-3.5 flex items-center justify-between">
-        <Link to="/landing" className="flex items-center gap-2">
-          <div className="relative w-8 h-8">
-            <div className="absolute top-0 left-0 w-5 h-5 rounded-md bg-green-400 opacity-80" />
-            <div className="absolute bottom-0 right-0 w-5 h-5 rounded-md" style={{ backgroundColor: "#1e2d6b" }} />
+      {/* ══ NAVBAR ══════════════════════════════════════════════════════════ */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+        <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/landing" className="flex items-center gap-2 shrink-0">
+            <div className="relative w-8 h-8">
+              <div className="absolute top-0 left-0 w-5 h-5 rounded-md bg-green-400 opacity-80" />
+              <div className="absolute bottom-0 right-0 w-5 h-5 rounded-md" style={{ backgroundColor: NAVY }} />
+            </div>
+            <span className="font-extrabold text-base" style={{ color: NAVY }}>Yummy CRM</span>
+          </Link>
+
+          {/* Desktop menu */}
+          <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-gray-500">
+            {[["#fitur","Fitur"],["#kenapa","Kenapa Kami"],["#testimoni","Testimoni"],["#faq","FAQ"]].map(([href,label]) => (
+              <li key={href}><a href={href} className="hover:text-gray-900 transition-colors">{label}</a></li>
+            ))}
+          </ul>
+
+          {/* Buttons */}
+          <div className="hidden md:flex items-center gap-2.5">
+            <Link to="/login"
+              className="text-sm font-semibold px-4 py-2 rounded-lg border transition hover:bg-gray-50"
+              style={{ borderColor: NAVY, color: NAVY }}>Masuk</Link>
+            <Link to="/member/register"
+              className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition hover:opacity-90"
+              style={{ backgroundColor: NAVY }}>Daftar Gratis</Link>
           </div>
-          <span className="font-extrabold text-base" style={{ color: "#1e2d6b" }}>Yummy CRM</span>
-        </Link>
 
-        <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-gray-500">
-          <li><a href="#fitur"     className="hover:text-gray-900 transition-colors">Fitur</a></li>
-          <li><a href="#cara-kerja" className="hover:text-gray-900 transition-colors">Cara Kerja</a></li>
-          <li><a href="#testimoni" className="hover:text-gray-900 transition-colors">Testimoni</a></li>
-          <li><a href="#faq"       className="hover:text-gray-900 transition-colors">FAQ</a></li>
-        </ul>
-
-        <div className="flex items-center gap-2.5">
-          <Link to="/login"
-            className="hidden sm:block text-sm font-semibold px-4 py-2 rounded-lg border transition hover:bg-gray-50"
-            style={{ borderColor: "#1e2d6b", color: "#1e2d6b" }}
-          >Masuk</Link>
-          <Link to="/member/register"
-            className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition hover:opacity-90 shadow-sm"
-            style={{ backgroundColor: "#1e2d6b" }}
-          >Daftar Gratis</Link>
+          {/* Hamburger */}
+          <button className="md:hidden p-2 text-gray-500" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div className="md:hidden px-6 pb-4 border-t border-gray-100 space-y-1">
+            {[["#fitur","Fitur"],["#kenapa","Kenapa Kami"],["#testimoni","Testimoni"],["#faq","FAQ"]].map(([href,label]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)}
+                className="block py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900">{label}</a>
+            ))}
+            <div className="flex gap-2 pt-2">
+              <Link to="/login" onClick={() => setMenuOpen(false)}
+                className="flex-1 text-center text-sm font-semibold py-2 rounded-lg border"
+                style={{ borderColor: NAVY, color: NAVY }}>Masuk</Link>
+              <Link to="/member/register" onClick={() => setMenuOpen(false)}
+                className="flex-1 text-center text-sm font-semibold py-2 rounded-lg text-white"
+                style={{ backgroundColor: NAVY }}>Daftar</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
-      {/* ── HERO ────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden px-6 pt-24 pb-32 text-center">
-        {/* Gradient background */}
-        <div className="absolute inset-0 -z-10"
-          style={{ background: "linear-gradient(160deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)" }} />
-        {/* Blob dekorasi */}
-        <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full opacity-20 -z-10"
-          style={{ background: "radial-gradient(circle, #1e2d6b 0%, transparent 70%)" }} />
-        <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full opacity-10 -z-10"
-          style={{ background: "radial-gradient(circle, #22c55e 0%, transparent 70%)" }} />
-
-        <div className="max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 text-xs font-semibold text-gray-500 shadow-sm mb-8">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            Platform CRM untuk Bisnis Catering
-          </div>
-
-          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.1] mb-6 tracking-tight">
-            Kelola Pelanggan &<br />
-            <span className="relative inline-block">
-              <span style={{ color: "#1e2d6b" }}>Pesanan Catering</span>
-              <svg className="absolute -bottom-1 left-0 w-full" height="6" viewBox="0 0 300 6" fill="none">
-                <path d="M0 3 Q75 0 150 3 Q225 6 300 3" stroke="#22c55e" strokeWidth="3" fill="none" strokeLinecap="round"/>
-              </svg>
+      {/* ══ HERO ════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Teks */}
+          <div>
+            <span className="inline-flex items-center gap-2 bg-green-50 text-green-700 text-xs font-bold px-3 py-1.5 rounded-full border border-green-200 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              Platform CRM untuk Bisnis Catering
             </span>
-            <br />dalam Satu Tempat
-          </h1>
 
-          <p className="text-gray-500 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Yummy CRM membantu bisnis catering kamu tumbuh — pesanan otomatis,
-            member loyalty, dan analitik bisnis dari satu dashboard.
-          </p>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.15] mb-5">
+              Kelola Pesanan &<br />
+              Pelanggan Catering<br />
+              <span style={{ color: NAVY }}>dalam Satu Platform</span>
+            </h1>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link to="/member/register"
-              className="px-8 py-4 rounded-xl text-white font-bold text-base shadow-lg hover:opacity-90 transition"
-              style={{ backgroundColor: "#1e2d6b" }}
-            >Mulai Gratis — Tanpa Kartu Kredit →</Link>
-            <Link to="/guest"
-              className="px-8 py-4 rounded-xl font-bold text-base border-2 border-gray-200 text-gray-700 hover:border-gray-400 hover:bg-gray-50 transition"
-            >Lihat Menu Catering</Link>
-          </div>
+            <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-md">
+              Yummy CRM membantu bisnis catering kamu tumbuh — pesanan otomatis,
+              member loyalty, dan dashboard analitik real-time.
+            </p>
 
-          {/* Social proof kecil */}
-          <div className="flex items-center justify-center gap-6 text-sm text-gray-400">
-            <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Gratis daftar</span>
-            <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Loyalitas otomatis</span>
-            <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Real-time dashboard</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PROBLEM & SOLUTION ──────────────────────────────────────────── */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Kenapa Yummy CRM?</span>
-            <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-3">Berhenti Kelola Bisnis Manual</h2>
-            <p className="text-gray-500 text-sm max-w-md mx-auto">Setiap menit yang kamu habiskan mencatat manual adalah menit yang bisa dipakai untuk berkembang.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-5">
-            {/* Tanpa CRM */}
-            <div className="bg-white border border-red-100 rounded-2xl p-7 shadow-sm">
-              <div className="flex items-center gap-2 mb-5">
-                <FaTimesCircle className="text-red-400 text-lg" />
-                <span className="font-bold text-red-500 text-sm">Tanpa Sistem</span>
-              </div>
-              <ul className="space-y-3.5">
-                {[
-                  "Data pelanggan tersebar di chat & catatan manual",
-                  "Pesanan terlewat atau sering double input",
-                  "Tidak tahu pelanggan mana yang paling setia",
-                  "Susah pantau pendapatan harian",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
-                    <span className="w-5 h-5 rounded-full bg-red-100 text-red-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✗</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+              <Link to="/member/register"
+                className="px-7 py-3.5 rounded-xl text-white font-bold text-sm shadow-md hover:opacity-90 transition text-center"
+                style={{ backgroundColor: NAVY }}>
+                Mulai Gratis →
+              </Link>
+              <Link to="/guest"
+                className="px-7 py-3.5 rounded-xl font-bold text-sm border-2 border-gray-200 text-gray-700 hover:bg-gray-50 transition text-center">
+                Lihat Menu
+              </Link>
             </div>
 
-            {/* Dengan CRM */}
-            <div className="border border-green-100 rounded-2xl p-7 shadow-sm"
-              style={{ background: "linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)" }}>
-              <div className="flex items-center gap-2 mb-5">
-                <FaCheckCircle className="text-green-500 text-lg" />
-                <span className="font-bold text-green-600 text-sm">Dengan Yummy CRM</span>
-              </div>
-              <ul className="space-y-3.5">
-                {[
-                  "Semua data pelanggan tersimpan rapi di satu tempat",
-                  "Pesanan masuk otomatis dari halaman publik",
-                  "Loyalty Bronze → Silver → Gold naik otomatis",
-                  "Dashboard penjualan & pelanggan real-time",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-                    <span className="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            {/* Social proof */}
+            <div className="flex flex-wrap gap-4 text-xs text-gray-400">
+              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Gratis daftar</span>
+              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Loyalty otomatis</span>
+              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Dashboard real-time</span>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ── FEATURES ────────────────────────────────────────────────────── */}
-      <section id="fitur" className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Semua yang Kamu Butuhkan</span>
-            <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-3">Fitur Lengkap</h2>
-            <p className="text-gray-500 text-sm">Satu platform untuk semua kebutuhan bisnis catering kamu.</p>
-          </div>
+          {/* Gambar hero */}
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-3xl opacity-20 -z-10"
+              style={{ background: `radial-gradient(circle at 60% 40%, ${NAVY}, transparent 70%)` }} />
+            <img
+              src="/images/hero-catering.jpg"
+              alt="Yummy Catering"
+              className="w-full rounded-2xl shadow-2xl object-cover"
+              style={{ aspectRatio: "4/3" }}
+              onError={(e) => {
+                e.target.style.display = "none";
+                e.target.nextSibling.style.display = "flex";
+              }}
+            />
+            {/* Placeholder kalau gambar belum ada */}
+            <div className="w-full rounded-2xl shadow-inner flex items-center justify-center text-gray-300 text-sm border-2 border-dashed border-gray-200 bg-gray-50"
+              style={{ aspectRatio: "4/3", display: "none" }}>
+              <div className="text-center">
+                <p className="text-4xl mb-2">🍱</p>
+                <p>Tambahkan foto catering kamu</p>
+                <p className="text-xs mt-1">public/images/hero-catering.jpg</p>
+              </div>
+            </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((f, i) => (
-              <div key={i}
-                className="group relative bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-200 overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-0 group-hover:opacity-5 transition-opacity"
-                  style={{ backgroundColor: "#1e2d6b", transform: "translate(30%, -30%)" }} />
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center text-lg mb-4"
-                  style={{ backgroundColor: "#eef2ff", color: "#1e2d6b" }}>
-                  {f.icon}
+            {/* Badge float */}
+            <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                  <FaCheckCircle />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2 text-sm">{f.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{f.desc}</p>
+                <div>
+                  <p className="text-xs font-bold text-gray-800">Pesanan Masuk!</p>
+                  <p className="text-xs text-gray-400">2 menit lalu</p>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── STATS ───────────────────────────────────────────────────────── */}
-      <section className="py-16 px-6" style={{ background: "linear-gradient(135deg, #1e2d6b 0%, #2d4499 100%)" }}>
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { value: "500+",   label: "Pelanggan Aktif" },
-            { value: "98%",    label: "Kepuasan Pelanggan" },
-            { value: "12.000", label: "Pesanan Diproses" },
-            { value: "3 Kota", label: "Area Layanan" },
-          ].map((s, i) => (
-            <div key={i} className="group">
-              <p className="text-4xl font-extrabold text-white mb-1 group-hover:scale-110 transition-transform">{s.value}</p>
-              <p className="text-xs text-white/60 font-medium uppercase tracking-wide">{s.label}</p>
+      {/* ══ STATS BAR ═══════════════════════════════════════════════════════ */}
+      <section className="border-y border-gray-100 bg-gray-50 py-10 px-6">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {stats.map((s, i) => (
+            <div key={i}>
+              <p className="text-3xl font-extrabold mb-1" style={{ color: NAVY }}>{s.value}</p>
+              <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── CARA KERJA ──────────────────────────────────────────────────── */}
-      <section id="cara-kerja" className="py-20 px-6 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Mudah Banget</span>
-            <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-3">Cara Mulai Pakai</h2>
-            <p className="text-gray-500 text-sm">3 langkah, kurang dari 2 menit.</p>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-5">
-            {steps.map((s, i) => (
-              <div key={i} className="relative bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold mx-auto mb-4 text-white"
-                  style={{ backgroundColor: "#1e2d6b" }}>
-                  {s.num}
+      {/* ══ FEATURES ════════════════════════════════════════════════════════ */}
+      <section id="fitur" className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Gambar */}
+            <div className="relative order-2 md:order-1">
+              <img src="/images/about-catering.jpg" alt="Fitur Yummy CRM"
+                className="w-full rounded-2xl shadow-xl object-cover"
+                style={{ aspectRatio: "4/3" }}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                  e.target.nextSibling.style.display = "flex";
+                }}
+              />
+              <div className="w-full rounded-2xl bg-gray-50 border-2 border-dashed border-gray-200 items-center justify-center text-gray-300 text-sm"
+                style={{ aspectRatio: "4/3", display: "none" }}>
+                <div className="text-center">
+                  <p className="text-4xl mb-2">👨‍🍳</p>
+                  <p>public/images/about-catering.jpg</p>
                 </div>
-                <h3 className="font-bold text-gray-800 mb-2 text-sm">{s.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
-                {/* Garis penghubung */}
-                {i < steps.length - 1 && (
-                  <div className="hidden sm:block absolute top-10 -right-3 text-gray-300 text-xl font-bold">→</div>
-                )}
               </div>
-            ))}
-          </div>
+            </div>
 
-          <div className="text-center mt-10">
-            <Link to="/member/register"
-              className="inline-block px-8 py-3.5 rounded-xl text-white font-bold text-sm shadow-md hover:opacity-90 transition"
-              style={{ backgroundColor: "#1e2d6b" }}
-            >Mulai Sekarang →</Link>
+            {/* Teks */}
+            <div className="order-1 md:order-2">
+              <span className="text-xs font-bold text-green-600 uppercase tracking-widest">Fitur Unggulan</span>
+              <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-4">
+                Semua yang Kamu<br />Butuhkan Ada di Sini
+              </h2>
+              <p className="text-gray-500 text-sm mb-8 leading-relaxed">
+                Dari pesanan masuk sampai reward pelanggan — semua dikelola dalam satu platform yang mudah digunakan.
+              </p>
+
+              <div className="space-y-4">
+                {features.map((f, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0"
+                      style={{ backgroundColor: NAVY }}>
+                      {f.icon}
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800 text-sm mb-0.5">{f.title}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed">{f.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIAL ─────────────────────────────────────────────────── */}
-      <section id="testimoni" className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
+      {/* ══ WHY CHOOSE US (dark) ════════════════════════════════════════════ */}
+      <section id="kenapa" className="py-20 px-6" style={{ backgroundColor: NAVY }}>
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Mereka Sudah Pakai</span>
+            <span className="text-xs font-bold text-green-400 uppercase tracking-widest">Kenapa Yummy CRM?</span>
+            <h2 className="text-3xl font-extrabold text-white mt-2 mb-3">
+              Lebih dari Sekadar Catatan
+            </h2>
+            <p className="text-white/60 text-sm max-w-md mx-auto">
+              Platform yang dirancang khusus untuk bisnis catering, bukan tools generik.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {whyUs.map((w, i) => (
+              <div key={i} className="rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-colors"
+                style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
+                <div className="text-3xl mb-4">{w.icon}</div>
+                <h3 className="font-bold text-white text-sm mb-2">{w.title}</h3>
+                <p className="text-xs text-white/60 leading-relaxed">{w.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ TESTIMONIAL ═════════════════════════════════════════════════════ */}
+      <section id="testimoni" className="py-20 px-6 bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs font-bold text-green-600 uppercase tracking-widest">Sudah Dipercaya</span>
             <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-3">Kata Pelanggan Kami</h2>
             <p className="text-gray-500 text-sm">Pengalaman nyata dari member Yummy Catering.</p>
           </div>
 
           <div className="grid sm:grid-cols-3 gap-5">
             {testimonials.map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                <div className="flex gap-0.5 text-amber-400 text-base mb-4">
-                  {"★★★★★".split("").map((s, j) => <span key={j}>{s}</span>)}
+              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col">
+                <div className="flex gap-0.5 text-amber-400 mb-4">
+                  {Array.from({ length: t.star }).map((_, j) => <FaStar key={j} className="text-sm" />)}
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed mb-6 flex-1">"{t.text}"</p>
+                <p className="text-sm text-gray-600 italic leading-relaxed flex-1 mb-5">"{t.text}"</p>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0"
-                    style={{ backgroundColor: "#1e2d6b" }}>
+                    style={{ backgroundColor: NAVY }}>
                     {t.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-gray-800 leading-tight">{t.name}</p>
+                    <p className="text-xs font-bold text-gray-800">{t.name}</p>
                     <p className="text-xs text-gray-400">{t.role}</p>
                   </div>
                 </div>
@@ -291,11 +312,54 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-      <section id="faq" className="py-20 px-6 bg-gray-50">
+      {/* ══ CTA BANNER (dengan gambar) ══════════════════════════════════════ */}
+      <section className="py-0 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="rounded-3xl overflow-hidden relative"
+            style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #2d4499 50%, #1a5c3a 100%)` }}>
+            {/* Dekorasi */}
+            <div className="absolute inset-0 opacity-10"
+              style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+
+            <div className="relative grid md:grid-cols-2 gap-0 items-center">
+              <div className="p-10 md:p-14">
+                <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-3 leading-tight">
+                  Siap Mulai Kelola Bisnis<br />Catering Lebih Cerdas?
+                </h2>
+                <p className="text-white/60 text-sm mb-7 leading-relaxed">
+                  Daftar gratis, tidak perlu kartu kredit. Langsung bisa pesan dan kumpulkan reward loyalty.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link to="/member/register"
+                    className="px-6 py-3 rounded-xl font-bold text-sm bg-white hover:bg-gray-100 transition text-center"
+                    style={{ color: NAVY }}>
+                    Daftar Sekarang ✨
+                  </Link>
+                  <a href={`https://wa.me/6281234567890?text=Halo, saya ingin tahu lebih lanjut tentang Yummy CRM`}
+                    target="_blank" rel="noreferrer"
+                    className="px-6 py-3 rounded-xl font-bold text-sm border border-white/30 text-white hover:bg-white/10 transition flex items-center justify-center gap-2">
+                    <FaWhatsapp /> Hubungi Kami
+                  </a>
+                </div>
+              </div>
+
+              {/* Gambar di dalam CTA banner */}
+              <div className="hidden md:block relative h-64 overflow-hidden">
+                <img src="/images/feature-order.jpg" alt="Order Catering"
+                  className="w-full h-full object-cover opacity-60"
+                  onError={(e) => e.target.style.display = "none"}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ FAQ ═════════════════════════════════════════════════════════════ */}
+      <section id="faq" className="py-20 px-6">
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Ada Pertanyaan?</span>
+          <div className="text-center mb-12">
+            <span className="text-xs font-bold text-green-600 uppercase tracking-widest">Ada Pertanyaan?</span>
             <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-3">Pertanyaan Umum</h2>
             <p className="text-gray-500 text-sm">Hal yang sering ditanyakan sebelum memulai.</p>
           </div>
@@ -303,17 +367,17 @@ export default function LandingPage() {
           <div className="space-y-3">
             {faqs.map((faq, i) => (
               <div key={i}
-                className={`rounded-xl border overflow-hidden transition-all ${openFaq === i ? "border-blue-200 shadow-sm" : "border-gray-200 bg-white"}`}>
+                className={`rounded-xl border overflow-hidden transition-all ${openFaq === i ? "border-blue-200" : "border-gray-200 bg-white"}`}>
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-4 text-left text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-4 text-left text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
                 >
-                  <span>{faq.q}</span>
-                  <span className="ml-4 shrink-0 text-xs text-gray-400 transition-transform duration-200"
-                    style={{ display: "inline-block", transform: openFaq === i ? "rotate(180deg)" : "rotate(0)" }}>▼</span>
+                  {faq.q}
+                  <span className="ml-4 text-xs text-gray-400 shrink-0"
+                    style={{ transition: "transform .2s", transform: openFaq === i ? "rotate(180deg)" : "rotate(0)" }}>▼</span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 pb-5 pt-2 text-sm text-gray-500 leading-relaxed border-t border-gray-100 bg-blue-50/30">
+                  <div className="px-5 pb-5 pt-1 text-sm text-gray-500 leading-relaxed bg-blue-50/30 border-t border-gray-100">
                     {faq.a}
                   </div>
                 )}
@@ -323,79 +387,45 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── CTA FINAL ───────────────────────────────────────────────────── */}
-      <section className="py-24 px-6 text-center relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #1e2d6b 0%, #2d4499 60%, #1a6b4a 100%)" }}>
-        {/* Dekorasi */}
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        <div className="absolute -top-20 left-1/4 w-64 h-64 rounded-full opacity-10 bg-white" />
-        <div className="absolute -bottom-16 right-1/4 w-48 h-48 rounded-full opacity-10 bg-white" />
-
-        <div className="relative max-w-2xl mx-auto">
-          <span className="inline-block text-green-300 text-xs font-bold uppercase tracking-widest mb-4">
-            Sudah siap memulai?
-          </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">
-            Ubah cara kelola bisnis<br />catering kamu sekarang.
-          </h2>
-          <p className="text-white/60 text-sm mb-10 max-w-sm mx-auto leading-relaxed">
-            Daftar gratis dalam 30 detik. Tidak perlu kartu kredit.<br />
-            Langsung bisa pesan dan kumpulkan reward.
-          </p>
-          <Link to="/member/register"
-            className="inline-block px-10 py-4 rounded-xl font-extrabold text-base bg-white hover:bg-gray-100 transition shadow-2xl"
-            style={{ color: "#1e2d6b" }}
-          >Daftar Sekarang — Gratis ✨</Link>
-
-          <div className="flex items-center justify-center gap-6 text-white/40 text-xs mt-8">
-            <span>✓ Gratis selamanya</span>
-            <span>✓ Tidak perlu kartu kredit</span>
-            <span>✓ Bisa batal kapan saja</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-      <footer id="footer" className="border-t border-gray-100 py-14 px-6">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-start justify-between gap-10 mb-10">
+      {/* ══ FOOTER ══════════════════════════════════════════════════════════ */}
+      <footer id="footer" className="border-t border-gray-100 py-12 px-6">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-start justify-between gap-10 mb-8">
           <div className="max-w-xs">
             <div className="flex items-center gap-2 mb-3">
-              <div className="relative w-7 h-7 shrink-0">
+              <div className="relative w-7 h-7">
                 <div className="absolute top-0 left-0 w-4 h-4 rounded-md bg-green-400 opacity-80" />
-                <div className="absolute bottom-0 right-0 w-4 h-4 rounded-md" style={{ backgroundColor: "#1e2d6b" }} />
+                <div className="absolute bottom-0 right-0 w-4 h-4 rounded-md" style={{ backgroundColor: NAVY }} />
               </div>
-              <span className="font-extrabold text-sm" style={{ color: "#1e2d6b" }}>Yummy CRM</span>
+              <span className="font-extrabold text-sm" style={{ color: NAVY }}>Yummy CRM</span>
             </div>
             <p className="text-xs text-gray-400 leading-relaxed">
-              Platform CRM untuk bisnis catering. Kelola pelanggan, pesanan, dan loyalty dalam satu tempat yang rapi.
+              Platform CRM untuk bisnis catering. Kelola pelanggan, pesanan, dan loyalty dalam satu tempat.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-10 text-sm">
             <div>
               <p className="font-bold text-gray-700 mb-3 text-xs uppercase tracking-wide">Produk</p>
-              <ul className="space-y-2.5">
-                <li><a href="#fitur"         className="text-gray-400 hover:text-gray-700 transition-colors text-xs">Fitur</a></li>
-                <li><Link to="/guest"        className="text-gray-400 hover:text-gray-700 transition-colors text-xs">Menu Catering</Link></li>
-                <li><Link to="/guest/promo"  className="text-gray-400 hover:text-gray-700 transition-colors text-xs">Promo</Link></li>
-                <li><Link to="/guest/reward" className="text-gray-400 hover:text-gray-700 transition-colors text-xs">Reward</Link></li>
+              <ul className="space-y-2">
+                {[["#fitur","Fitur"],["#kenapa","Kenapa Kami"],["/guest","Menu Catering"],["/guest/promo","Promo"]].map(([to,label]) => (
+                  <li key={to}>{to.startsWith("#") ? <a href={to} className="text-xs text-gray-400 hover:text-gray-700">{label}</a> : <Link to={to} className="text-xs text-gray-400 hover:text-gray-700">{label}</Link>}</li>
+                ))}
               </ul>
             </div>
             <div>
               <p className="font-bold text-gray-700 mb-3 text-xs uppercase tracking-wide">Akun</p>
-              <ul className="space-y-2.5">
-                <li><Link to="/member/login"    className="text-gray-400 hover:text-gray-700 transition-colors text-xs">Login Member</Link></li>
-                <li><Link to="/member/register" className="text-gray-400 hover:text-gray-700 transition-colors text-xs">Daftar Member</Link></li>
-                <li><Link to="/login"           className="text-gray-400 hover:text-gray-700 transition-colors text-xs">Admin Login</Link></li>
+              <ul className="space-y-2">
+                {[["/member/login","Login Member"],["/member/register","Daftar Member"],["/login","Admin Login"]].map(([to,label]) => (
+                  <li key={to}><Link to={to} className="text-xs text-gray-400 hover:text-gray-700">{label}</Link></li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="max-w-5xl mx-auto pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-gray-400">© 2025 Yummy Catering. All rights reserved.</p>
-          <p className="text-xs text-gray-400">Dibuat dengan ❤️ untuk bisnis catering Indonesia</p>
+          <p className="text-xs text-gray-400">Dibuat untuk bisnis catering Indonesia 🍱</p>
         </div>
       </footer>
     </div>
