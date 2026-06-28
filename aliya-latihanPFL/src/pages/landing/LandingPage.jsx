@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { FaUsers, FaChartBar, FaClipboardList } from "react-icons/fa";
+import { FaUsers, FaChartBar, FaClipboardList, FaTimesCircle, FaCheckCircle } from "react-icons/fa";
 
-// ── PRD V1: Landing Page CRM - Struktur Dasar ──────────────────────────────
-// Berisi: Navbar, Hero Section, Feature Section, Footer
-// Belum ada: Problem/Solution, Testimonial, FAQ, Stats
+// ── PRD V2: Landing Page CRM - Tambah Problem/Solution + Stats ─────────────
+// Perubahan dari V1:
+// + Problem & Solution section (Area Middle - membangun kepercayaan)
+// + Stats section (angka pencapaian)
+// Belum ada: Testimonial, FAQ, CTA akhir
 
 export default function LandingPage() {
   return (
@@ -11,7 +13,6 @@ export default function LandingPage() {
 
       {/* ── NAVBAR ──────────────────────────────────────────────── */}
       <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="relative w-8 h-8 shrink-0">
             <div className="absolute top-0 left-0 w-5 h-5 rounded-md bg-green-400 opacity-80" />
@@ -20,13 +21,12 @@ export default function LandingPage() {
           <span className="font-bold text-base" style={{ color: "#1e2d6b" }}>Yummy CRM</span>
         </div>
 
-        {/* Menu */}
         <ul className="hidden md:flex items-center gap-6 text-sm text-gray-600">
+          <li><a href="#masalah" className="hover:text-gray-900">Masalah</a></li>
           <li><a href="#fitur" className="hover:text-gray-900">Fitur</a></li>
           <li><a href="#footer" className="hover:text-gray-900">Kontak</a></li>
         </ul>
 
-        {/* CTA Sekunder */}
         <Link
           to="/login"
           className="px-4 py-2 text-sm font-semibold rounded-lg border"
@@ -38,24 +38,17 @@ export default function LandingPage() {
 
       {/* ── HERO SECTION ────────────────────────────────────────── */}
       <section className="max-w-4xl mx-auto px-6 py-20 text-center">
-        {/* Pre-title */}
         <p className="text-sm font-semibold text-green-600 uppercase tracking-widest mb-3">
           Sistem CRM untuk Catering
         </p>
-
-        {/* Headline */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
           Kelola Pelanggan Catering<br />
           <span style={{ color: "#1e2d6b" }}>Lebih Mudah & Terorganisir</span>
         </h1>
-
-        {/* Subheadline */}
         <p className="text-gray-500 text-base md:text-lg max-w-xl mx-auto mb-8">
           Yummy CRM membantu bisnis catering kamu mencatat pesanan, mengelola pelanggan,
           dan memantau performa dalam satu dashboard.
         </p>
-
-        {/* Primary CTA */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             to="/register"
@@ -73,13 +66,85 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── STATS SECTION (baru di V2) ──────────────────────────── */}
+      <section className="bg-gray-900 py-12 px-6">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {[
+            { value: "500+", label: "Pelanggan Aktif" },
+            { value: "98%",  label: "Kepuasan Pelanggan" },
+            { value: "12rb", label: "Pesanan Diproses" },
+            { value: "3 kota", label: "Area Layanan" },
+          ].map((s, i) => (
+            <div key={i}>
+              <p className="text-3xl font-extrabold text-white mb-1">{s.value}</p>
+              <p className="text-xs text-gray-400">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PROBLEM & SOLUTION (baru di V2) ────────────────────── */}
+      <section id="masalah" className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Tantangan Bisnis Catering
+            </h2>
+            <p className="text-gray-500 text-sm">
+              Masalah yang sering dihadapi, dan bagaimana Yummy CRM menyelesaikannya.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Masalah */}
+            <div className="bg-red-50 rounded-2xl p-6 border border-red-100">
+              <h3 className="font-bold text-red-700 mb-4 flex items-center gap-2">
+                <FaTimesCircle /> Tanpa CRM
+              </h3>
+              <ul className="space-y-2">
+                {[
+                  "Data pelanggan tersebar di chat dan catatan manual",
+                  "Pesanan sering terlewat atau double input",
+                  "Tidak tahu pelanggan mana yang paling loyal",
+                  "Susah pantau pendapatan harian",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-red-600">
+                    <span className="mt-0.5">✗</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Solusi */}
+            <div className="bg-green-50 rounded-2xl p-6 border border-green-100">
+              <h3 className="font-bold text-green-700 mb-4 flex items-center gap-2">
+                <FaCheckCircle /> Dengan Yummy CRM
+              </h3>
+              <ul className="space-y-2">
+                {[
+                  "Semua data pelanggan tersimpan rapi di satu tempat",
+                  "Pesanan masuk otomatis dari halaman publik",
+                  "Sistem loyalty otomatis Bronze, Silver, Gold",
+                  "Dashboard real-time untuk pantau bisnis",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-green-700">
+                    <span className="mt-0.5">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── FEATURE SECTION ─────────────────────────────────────── */}
       <section id="fitur" className="bg-gray-50 py-16 px-6">
         <div className="max-w-4xl mx-auto text-center mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Fitur Utama</h2>
           <p className="text-gray-500 text-sm">Semua yang kamu butuhkan ada di sini.</p>
         </div>
-
         <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
           {[
             {
