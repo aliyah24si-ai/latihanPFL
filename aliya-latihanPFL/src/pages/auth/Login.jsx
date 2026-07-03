@@ -28,7 +28,7 @@ export default function Login() {
 
     try {
       await authAPI.login(dataForm.email, dataForm.password);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Email atau password salah!");
     } finally {
@@ -118,6 +118,13 @@ export default function Login() {
           style={{ color: "#1e2d6b" }}
         >
           Sign up
+        </Link>
+      </p>
+
+      <p className="text-center text-xs text-gray-400 mt-3">
+        Pelanggan?{" "}
+        <Link to="/member/login" className="hover:underline" style={{ color: "#1e2d6b" }}>
+          Login sebagai Member
         </Link>
       </p>
     </div>

@@ -57,7 +57,7 @@ export default function Sidebar({ isOpen }) {
           </p>
         </li>
         <li>
-          <NavLink to="/dashboard-penjualan" className={menuClass}>
+          <NavLink to="/dashboard" end className={menuClass}>
             <FaChartLine className="text-base shrink-0" />
             Dashboard Penjualan
           </NavLink>
