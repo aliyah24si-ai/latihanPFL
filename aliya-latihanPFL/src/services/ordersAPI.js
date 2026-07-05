@@ -17,10 +17,13 @@ export const ordersAPI = {
    * Tambah order baru (dipanggil dari halaman Guest)
    */
   async createOrder(payload) {
+    // Hapus field yang undefined/null agar tidak conflict
+    const cleanPayload = Object.fromEntries(
+      Object.entries(payload).filter(([_, v]) => v !== undefined)
+    );
     const { data, error } = await supabase
       .from("orders")
-      .insert([payload])
-      .select();
+      .insert([cleanPayload]);
     if (error) throw new Error(error.message);
     return data;
   },
