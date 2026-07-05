@@ -64,7 +64,7 @@ export default function LandingPage() {
               <div className="absolute top-0 left-0 w-5 h-5 rounded-md bg-green-400 opacity-80" />
               <div className="absolute bottom-0 right-0 w-5 h-5 rounded-md" style={{ backgroundColor: NAVY }} />
             </div>
-            <span className="font-extrabold text-base" style={{ color: NAVY }}>Yummy CRM</span>
+            <span className="font-extrabold text-base" style={{ color: NAVY }}>Yummy</span>
           </Link>
 
           {/* Desktop menu */}
@@ -126,7 +126,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-md">
-              Yummy CRM membantu bisnis catering kamu tumbuh — pesanan otomatis,
+              Yummy membantu bisnis catering kamu tumbuh — pesanan otomatis,
               member loyalty, dan dashboard analitik real-time.
             </p>
 
@@ -208,7 +208,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             {/* Gambar */}
             <div className="relative order-2 md:order-1">
-              <img src="/images/about-catering.jpg" alt="Fitur Yummy CRM"
+              <img src="/images/about-catering.jpg" alt="Fitur Yummy"
                 className="w-full rounded-2xl shadow-xl object-cover"
                 style={{ aspectRatio: "4/3" }}
                 onError={(e) => {
@@ -258,7 +258,7 @@ export default function LandingPage() {
       <section id="kenapa" className="py-20 px-6" style={{ backgroundColor: NAVY }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-xs font-bold text-green-400 uppercase tracking-widest">Kenapa Yummy CRM?</span>
+            <span className="text-xs font-bold text-green-400 uppercase tracking-widest">Kenapa Yummy?</span>
             <h2 className="text-3xl font-extrabold text-white mt-2 mb-3">
               Lebih dari Sekadar Catatan
             </h2>
@@ -335,7 +335,7 @@ export default function LandingPage() {
                     style={{ color: NAVY }}>
                     Daftar Sekarang ✨
                   </Link>
-                  <a href={`https://wa.me/6281234567890?text=Halo, saya ingin tahu lebih lanjut tentang Yummy CRM`}
+                  <a href={`https://wa.me/6281234567890?text=Halo, saya ingin tahu lebih lanjut tentang Yummy`}
                     target="_blank" rel="noreferrer"
                     className="px-6 py-3 rounded-xl font-bold text-sm border border-white/30 text-white hover:bg-white/10 transition flex items-center justify-center gap-2">
                     <FaWhatsapp /> Hubungi Kami
@@ -396,7 +396,7 @@ export default function LandingPage() {
                 <div className="absolute top-0 left-0 w-4 h-4 rounded-md bg-green-400 opacity-80" />
                 <div className="absolute bottom-0 right-0 w-4 h-4 rounded-md" style={{ backgroundColor: NAVY }} />
               </div>
-              <span className="font-extrabold text-sm" style={{ color: NAVY }}>Yummy CRM</span>
+              <span className="font-extrabold text-sm" style={{ color: NAVY }}>Yummy</span>
             </div>
             <p className="text-xs text-gray-400 leading-relaxed">
               Platform CRM untuk bisnis catering. Kelola pelanggan, pesanan, dan loyalty dalam satu tempat.
