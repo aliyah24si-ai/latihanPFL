@@ -30,10 +30,10 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" })
       onClick={(e) => e.target === e.currentTarget && onClose?.()}
     >
       <div
-        className={`bg-white rounded-2xl shadow-xl w-full ${sizes[size]} relative animate-in fade-in zoom-in-95 duration-200`}
+        className={`bg-white rounded-2xl shadow-xl w-full ${sizes[size]} relative animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-garis">
+        <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-garis shrink-0">
           <h3 className="text-lg font-semibold text-teks">{title}</h3>
           <button
             onClick={onClose}
@@ -43,8 +43,8 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" })
           </button>
         </div>
 
-        {/* Body */}
-        <div className="px-6 py-5">{children}</div>
+        {/* Body — scrollable */}
+        <div className="px-6 py-5 overflow-y-auto flex-1">{children}</div>
       </div>
     </div>
   );

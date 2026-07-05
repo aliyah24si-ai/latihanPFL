@@ -71,7 +71,13 @@ export default function MenuManagement() {
     const { error } = await supabase.storage
       .from("menu-images")
       .upload(fileName, file, { upsert: true });
-    if (error) throw new Error(error.message);
+    if (error) {
+      // Kalau bucket belum ada, beri pesan jelas
+      if (error.message?.includes("Bucket not found") || error.message?.includes("bucket")) {
+        throw new Error('Bucket "menu-images" belum dibuat. Buat dulu di Supabase → Storage → New Bucket → nama: menu-images → Public.');
+      }
+      throw new Error(error.message);
+    }
 
     const { data } = supabase.storage.from("menu-images").getPublicUrl(fileName);
     return data.publicUrl;
