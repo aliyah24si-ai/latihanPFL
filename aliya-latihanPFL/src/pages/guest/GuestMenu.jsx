@@ -114,7 +114,10 @@ export default function GuestMenu() {
           <div key={item.id}
             className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden">
             <div className="h-44 overflow-hidden bg-gray-50 flex items-center justify-center">
-              {getImage(item.nama) ? (
+              {item.image_url ? (
+                <img src={item.image_url} alt={item.nama}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+              ) : getImage(item.nama) ? (
                 <img src={getImage(item.nama)} alt={item.nama}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   onError={(e) => { e.target.style.display = "none"; }} />
