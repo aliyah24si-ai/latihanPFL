@@ -57,7 +57,10 @@ export default function GuestMenu() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         setMemberSession(session);
-        membersAPI.getProfile(session.user.id).then(setMemberProfile).catch(() => {});
+        // Kalau getProfile gagal (misal login sebagai admin, bukan member), abaikan saja
+        membersAPI.getProfile(session.user.id)
+          .then(setMemberProfile)
+          .catch(() => setMemberProfile(null));
       }
     });
 
@@ -89,10 +92,16 @@ export default function GuestMenu() {
         status:        "Pending",
         member_email:  memberProfile?.email || null,
       });
-      if (memberSession) {
-        await membersAPI.updateLoyalty(memberSession.user.id);
-        const updated = await membersAPI.getProfile(memberSession.user.id);
-        setMemberProfile(updated);
+
+      // Update loyalty hanya kalau memang ada profil member
+      if (memberSession && memberProfile) {
+        try {
+          await membersAPI.updateLoyalty(memberSession.user.id);
+          const updated = await membersAPI.getProfile(memberSession.user.id);
+          setMemberProfile(updated);
+        } catch {
+          // Gagal update loyalty tidak menghentikan pesanan
+        }
       }
       setSuccess(`Pesanan ${selectedMenu.nama} berhasil dikirim! Admin akan segera menghubungi kamu.`);
       setForm(emptyForm);
