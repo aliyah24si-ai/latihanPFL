@@ -34,8 +34,9 @@ export const membersAPI = {
       .from("members")
       .select("*")
       .eq("id", userId)
-      .single();
+      .maybeSingle();
     if (error) throw new Error(error.message);
+    if (!data) throw new Error("Profil member tidak ditemukan");
     return data;
   },
 
@@ -52,23 +53,26 @@ export const membersAPI = {
 
   /** Update loyalty dan total_orders setelah order baru */
   async updateLoyalty(userId) {
-    // Ambil jumlah order member ini
-    const { data: member } = await supabase
-      .from("members")
-      .select("total_orders, email")
-      .eq("id", userId)
-      .single();
+    try {
+      const { data: member, error } = await supabase
+        .from("members")
+        .select("total_orders")
+        .eq("id", userId)
+        .maybeSingle(); // pakai maybeSingle agar tidak error kalau tidak ada
 
-    if (!member) return;
+      if (error || !member) return; // kalau tidak ada data, skip saja
 
-    const newTotal = (member.total_orders || 0) + 1;
-    const loyalty =
-      newTotal >= 10 ? "Gold" :
-      newTotal >= 5  ? "Silver" : "Bronze";
+      const newTotal = (member.total_orders || 0) + 1;
+      const loyalty =
+        newTotal >= 10 ? "Gold" :
+        newTotal >= 5  ? "Silver" : "Bronze";
 
-    await supabase
-      .from("members")
-      .update({ total_orders: newTotal, loyalty })
-      .eq("id", userId);
+      await supabase
+        .from("members")
+        .update({ total_orders: newTotal, loyalty })
+        .eq("id", userId);
+    } catch {
+      // Gagal update loyalty tidak perlu menghentikan proses order
+    }
   },
 };
