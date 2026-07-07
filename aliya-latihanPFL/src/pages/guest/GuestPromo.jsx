@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import GuestLayout from "../../layouts/GuestLayout";
 import { promosAPI } from "../../services/promosAPI";
 
-const categories = ["Semua", "New", "Loyal", "Gold", "Silver", "Bronze", "VIP", "All"];
+const categories = ["Semua", "Bronze", "Silver", "Gold"];
 
 const bgMap = {
   New:    "from-green-400 to-emerald-600",
@@ -45,7 +45,7 @@ export default function GuestPromo() {
           <button key={cat} onClick={() => setSelectedCat(cat)}
             className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${selectedCat === cat ? "text-white border-transparent" : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"}`}
             style={selectedCat === cat ? { backgroundColor: "#1e2d6b", borderColor: "#1e2d6b" } : {}}>
-            {cat}
+            {cat === "Semua" ? "🌐 Semua" : cat === "Bronze" ? "🥉 Bronze" : cat === "Silver" ? "🥈 Silver" : "🥇 Gold"}
           </button>
         ))}
       </div>

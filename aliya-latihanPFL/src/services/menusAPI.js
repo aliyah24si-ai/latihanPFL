@@ -37,3 +37,12 @@ export const menusAPI = {
     if (error) throw new Error(error.message);
   },
 };
+
+// //useEffect dipanggil
+// → menusAPI.fetchMenus() dijalankan
+// → supabase.from("menus").select("*").order("created_at")
+// → Supabase kirim GET ke: https://[project].supabase.co/rest/v1/menus
+// → Database PostgreSQL query: SELECT * FROM menus ORDER BY created_at DESC
+// → Hasilnya: array JSON [{id:1, nama:"Paket Harian", harga:25000, ...}, ...]
+// → React simpan ke useState([menus])
+// → Komponen Table render data

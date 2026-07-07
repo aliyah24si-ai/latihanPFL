@@ -15,37 +15,37 @@ import {
 const NAVY = "#1e2d6b";
 
 const features = [
-  { icon: <FaClipboardList />, title: "Pesanan Otomatis",       desc: "Pesanan masuk langsung dari halaman publik, admin bisa update status seketika." },
-  { icon: <FaUsers />,         title: "Manajemen Pelanggan",    desc: "Data pelanggan, riwayat pesanan, dan level loyalitas tersimpan rapi." },
-  { icon: <FaChartBar />,      title: "Dashboard Real-Time",    desc: "Pantau penjualan dan pelanggan dari dua dashboard yang terpisah dan jelas." },
-  { icon: <FaGift />,          title: "Promo & Loyalty",        desc: "Reward otomatis naik level Bronze → Silver → Gold sesuai jumlah pesanan." },
+  { icon: <FaClipboardList />, title: "Beragam Menu Pilihan",    desc: "Dari paket harian, snack box, hingga nasi tumpeng — semua tersedia untuk berbagai acara." },
+  { icon: <FaUsers />,         title: "Layanan Personal",        desc: "Setiap pesanan ditangani langsung oleh tim kami dengan perhatian penuh pada detail." },
+  { icon: <FaGift />,          title: "Promo & Reward Member",   desc: "Semakin sering pesan, semakin banyak reward yang kamu dapatkan secara otomatis." },
+  { icon: <FaChartBar />,      title: "Pemesanan Mudah",         desc: "Pesan online kapan saja, pilih DP atau bayar lunas, dan pantau status pesanan real-time." },
 ];
 
 const whyUs = [
-  { icon: "🚀", title: "Mudah Dipakai",      desc: "Daftar 30 detik, langsung bisa pesan." },
-  { icon: "🔒", title: "Aman & Terpercaya",  desc: "Login via Supabase Auth, data terlindungi." },
-  { icon: "📱", title: "Mobile Friendly",    desc: "Tampil sempurna di HP maupun laptop." },
-  { icon: "⚡", title: "Real-Time Update",   desc: "Status pesanan & data selalu up to date." },
+  { icon: "🍱", title: "Menu Berkualitas",    desc: "Dibuat dari bahan segar pilihan dengan standar kebersihan terjaga." },
+  { icon: "⚡", title: "Proses Cepat",        desc: "Pemesanan mudah, konfirmasi cepat, pengiriman tepat waktu." },
+  { icon: "🎁", title: "Reward Loyal",        desc: "Semakin banyak order, level kamu naik dan reward makin besar." },
+  { icon: "📱", title: "Pesan Dari HP",       desc: "Buka website, pilih menu, isi alamat — selesai dalam menit." },
 ];
 
 const stats = [
-  { value: "500+",  label: "Pelanggan Aktif" },
+  { value: "500+",  label: "Pelanggan Puas" },
   { value: "98%",   label: "Kepuasan" },
-  { value: "12rb+", label: "Pesanan" },
-  { value: "3",     label: "Kota" },
+  { value: "12rb+", label: "Pesanan Selesai" },
+  { value: "3",     label: "Kota Layanan" },
 ];
 
 const testimonials = [
-  { name: "Siti Rahayu",  role: "Member Gold",    star: 5, text: "Pesan catering jadi jauh lebih mudah. Status pesanan bisa dipantau langsung!" },
-  { name: "Budi Santoso", role: "Pelanggan Loyal", star: 5, text: "Reward loyalty-nya beneran bisa diklaim. Dapat free ongkir tiap bulan!" },
-  { name: "Dewi Lestari", role: "Member Silver",   star: 5, text: "Daftar member gampang, langsung bisa pesan. Rapi dan cepat." },
+  { name: "Siti Rahayu",  role: "Member Gold",    star: 5, text: "Menu cateringnya enak dan higienis. Proses pemesanannya cepat, langsung ada konfirmasi!" },
+  { name: "Budi Santoso", role: "Pelanggan Setia", star: 5, text: "Sudah beberapa kali pesan untuk acara kantor. Selalu tepat waktu dan rasanya konsisten." },
+  { name: "Dewi Lestari", role: "Member Silver",   star: 5, text: "Snack box-nya disukai semua tamu undangan. Kemasan rapi, harga terjangkau." },
 ];
 
 const faqs = [
-  { q: "Apakah gratis?",                     a: "Ya, pendaftaran member sepenuhnya gratis. Langsung bisa pesan dan kumpulkan poin loyalty." },
-  { q: "Bagaimana cara mendaftar?",           a: "Klik Daftar Gratis → isi nama, email, password → selesai, langsung bisa login." },
-  { q: "Bagaimana sistem loyalty bekerja?",   a: "Otomatis. Makin banyak pesanan, level naik dari Bronze → Silver → Gold dengan reward makin besar." },
-  { q: "Apakah pesanan bisa dipantau?",       a: "Bisa. Setelah login member, semua riwayat pesanan dan statusnya tampil di dashboard." },
+  { q: "Apa saja menu yang tersedia?",               a: "Kami menyediakan paket harian, paket premium, snack box, cookies box, nasi tumpeng mini, dan paket vegetarian." },
+  { q: "Bagaimana cara memesan?",                    a: "Buka halaman Menu, pilih makanan yang diinginkan, isi data pengiriman dan jumlah porsi, lalu transfer ke nomor Dana kami." },
+  { q: "Apakah bisa bayar DP dulu?",                 a: "Bisa. Tersedia pilihan DP 50% di awal agar pesanan segera diproses, atau bayar lunas untuk prioritas utama." },
+  { q: "Apa keuntungan daftar member?",              a: "Member mendapat reward otomatis — semakin banyak pesan, level naik dari Bronze → Silver → Gold dengan hadiah makin besar." },
 ];
 
 export default function LandingPage() {
@@ -116,37 +116,36 @@ export default function LandingPage() {
           <div>
             <span className="inline-flex items-center gap-2 bg-green-50 text-green-700 text-xs font-bold px-3 py-1.5 rounded-full border border-green-200 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              Platform CRM untuk Bisnis Catering
+              Catering Lezat untuk Setiap Momen
             </span>
 
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.15] mb-5">
-              Kelola Pesanan &<br />
-              Pelanggan Catering<br />
-              <span style={{ color: NAVY }}>dalam Satu Platform</span>
+              Hidangan Lezat untuk<br />
+              <span style={{ color: NAVY }}>Setiap Momen Istimewa</span>
             </h1>
 
             <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-md">
-              Yummy membantu bisnis catering kamu tumbuh — pesanan otomatis,
-              member loyalty, dan dashboard analitik real-time.
+              Sajikan momen spesial dengan menu catering yang lezat, higienis, dan dibuat
+              dari bahan berkualitas. Pesan sekarang dengan proses yang cepat dan praktis.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-8">
-              <Link to="/member/register"
+              <Link to="/guest"
                 className="px-7 py-3.5 rounded-xl text-white font-bold text-sm shadow-md hover:opacity-90 transition text-center"
                 style={{ backgroundColor: NAVY }}>
-                Mulai Gratis →
+                Pesan Sekarang →
               </Link>
-              <Link to="/guest"
+              <Link to="/member/register"
                 className="px-7 py-3.5 rounded-xl font-bold text-sm border-2 border-gray-200 text-gray-700 hover:bg-gray-50 transition text-center">
-                Lihat Menu
+                Daftar Member Gratis
               </Link>
             </div>
 
             {/* Social proof */}
             <div className="flex flex-wrap gap-4 text-xs text-gray-400">
-              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Gratis daftar</span>
-              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Loyalty otomatis</span>
-              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Dashboard real-time</span>
+              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Bahan berkualitas</span>
+              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Proses cepat & praktis</span>
+              <span className="flex items-center gap-1.5"><FaCheckCircle className="text-green-500" /> Reward member</span>
             </div>
           </div>
 
@@ -229,10 +228,10 @@ export default function LandingPage() {
             <div className="order-1 md:order-2">
               <span className="text-xs font-bold text-green-600 uppercase tracking-widest">Fitur Unggulan</span>
               <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-4">
-                Semua yang Kamu<br />Butuhkan Ada di Sini
+                Menu Lezat untuk<br />Berbagai Acara
               </h2>
               <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-                Dari pesanan masuk sampai reward pelanggan — semua dikelola dalam satu platform yang mudah digunakan.
+                Dari acara keluarga kecil hingga gathering perusahaan besar — kami siapkan sajian terbaik untuk setiap momen.
               </p>
 
               <div className="space-y-4">
@@ -260,10 +259,10 @@ export default function LandingPage() {
           <div className="text-center mb-14">
             <span className="text-xs font-bold text-green-400 uppercase tracking-widest">Kenapa Yummy?</span>
             <h2 className="text-3xl font-extrabold text-white mt-2 mb-3">
-              Lebih dari Sekadar Catatan
+              Catering yang Bisa Kamu Andalkan
             </h2>
             <p className="text-white/60 text-sm max-w-md mx-auto">
-              Platform yang dirancang khusus untuk bisnis catering, bukan tools generik.
+              Pilihan tepat untuk acara keluarga, kantor, seminar, hingga pernikahan.
             </p>
           </div>
 
@@ -324,18 +323,18 @@ export default function LandingPage() {
             <div className="relative grid md:grid-cols-2 gap-0 items-center">
               <div className="p-10 md:p-14">
                 <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-3 leading-tight">
-                  Siap Mulai Kelola Bisnis<br />Catering Lebih Cerdas?
+                  Pesan Catering Sekarang,<br />Nikmati Kemudahannya!
                 </h2>
                 <p className="text-white/60 text-sm mb-7 leading-relaxed">
-                  Daftar gratis, tidak perlu kartu kredit. Langsung bisa pesan dan kumpulkan reward loyalty.
+                  Proses mudah, menu lezat, pengiriman tepat waktu. Daftar member dan dapatkan reward di setiap pesanan.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link to="/member/register"
                     className="px-6 py-3 rounded-xl font-bold text-sm bg-white hover:bg-gray-100 transition text-center"
                     style={{ color: NAVY }}>
-                    Daftar Sekarang ✨
+                    Pesan Sekarang ✨
                   </Link>
-                  <a href={`https://wa.me/6281234567890?text=Halo, saya ingin tahu lebih lanjut tentang Yummy`}
+                  <a href={`https://wa.me/6281234567890?text=Halo, saya ingin tanya tentang catering Yummy`}
                     target="_blank" rel="noreferrer"
                     className="px-6 py-3 rounded-xl font-bold text-sm border border-white/30 text-white hover:bg-white/10 transition flex items-center justify-center gap-2">
                     <FaWhatsapp /> Hubungi Kami
@@ -360,8 +359,8 @@ export default function LandingPage() {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-xs font-bold text-green-600 uppercase tracking-widest">Ada Pertanyaan?</span>
-            <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-3">Pertanyaan Umum</h2>
-            <p className="text-gray-500 text-sm">Hal yang sering ditanyakan sebelum memulai.</p>
+            <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-3">Pertanyaan yang Sering Ditanyakan</h2>
+            <p className="text-gray-500 text-sm">Semua yang perlu kamu tahu sebelum memesan.</p>
           </div>
 
           <div className="space-y-3">
@@ -399,7 +398,7 @@ export default function LandingPage() {
               <span className="font-extrabold text-sm" style={{ color: NAVY }}>Yummy</span>
             </div>
             <p className="text-xs text-gray-400 leading-relaxed">
-              Platform CRM untuk bisnis catering. Kelola pelanggan, pesanan, dan loyalty dalam satu tempat.
+              Catering lezat dan higienis untuk semua momen istimewa kamu.
             </p>
           </div>
 
@@ -425,7 +424,7 @@ export default function LandingPage() {
 
         <div className="max-w-5xl mx-auto pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-gray-400">© 2025 Yummy Catering. All rights reserved.</p>
-          <p className="text-xs text-gray-400">Dibuat untuk bisnis catering Indonesia 🍱</p>
+          <p className="text-xs text-gray-400">Catering lezat untuk setiap momen 🍱</p>
         </div>
       </footer>
     </div>
